@@ -1,9 +1,11 @@
-/* @override http://localhost/~matthiasroggo/maroggo%20ee/musik/bearbeiten.css */
+/*
+@import url('fonts/OFLGoudyStMTT.ttf');
+@import url('fonts/IMFeDPrm28.ttf');
+@import url('fonts/CrimsonText-Semibold.ttf');
 
-@font-face { font-family:BodoniBI; src:url(bodoni/BodoniFLF-BoldItalic.ttf); }
-@font-face { font-family:BodoniB; src:url(bodoni/BodoniFLF-Bold.ttf); }
-@font-face { font-family:BodoniI; src:url(bodoni/BodoniFLF-Italic.ttf); }
-@font-face { font-family:Bodoni; src:url(bodoni/BodoniFLF-Roman.ttf); }
+Krücke: */
+
+@import url('http://fonts.googleapis.com/css?family=OFL+Sorts+Mill+Goudy+TT:400,400italic|IM+Fell+Double+Pica:400,400italic|IM+Fell+Double+Pica+SC|Crimson+Text:600');
 
 
 *{
@@ -12,68 +14,22 @@
 
 body {
 	width: 600px;
-	font: 16px "Bauer Bodoni", Bodoni, Georgia, "Times New Roman", Times, serif;
-	/*font-family: BodoniBI;*/
+	padding: 0 2em 2em;
 	margin-right: auto;
 	margin-left: auto;
-	padding: 2em;
+	font: 16px 'OFL Sorts Mill Goudy TT', serif;
+	margin-top: 0;
 }
 
 
 
 #werkzeuge{
-	position: fixed;
-	left: 130px;
-	margin-top: 128px;
 }
 
 #akkordListe{
 }
 
-#akkordListe .chord:hover, #papierkorb:hover{
-	opacity: 1;
-}
-
 #akkordListe .chord{
-	opacity: 0.25;
-	font-size: 22px;
-	font-style: italic;
-	padding: 3px 5px 0;
-	vertical-align: text-bottom;
-	white-space: nowrap;
-	
-	color: black;
-	background-color: rgba(203,202,204,0.8);
-	
-	border-radius: 5px;
-	border: 1px none #595959;
-	border-bottom-style: solid;
-	border-right-style: solid;
-	border-right-color: #bebebe;
-	overflow: hidden;
-	text-decoration: none;
-	margin: 0 0 4px;
-	display: block;
-}
-
-#papierkorb{
-	opacity: 0.25;
-	text-align: center;
-	width: 37px;
-	margin-top: 25px;
-	
-	color: black;
-	background-color: rgba(203,202,204,0.8);
-	
-	border-radius: 5px;
-	border: 1px none #595959;
-	border-bottom-style: solid;
-	border-right-style: solid;
-	border-right-color: #bebebe;
-	height: 25px;
-	font-weight: bold;
-	padding-top: 10px;
-	font-size: 21px;
 }
 
 span note{
@@ -92,27 +48,33 @@ span note{
 
 h1{
 	display: block;
-	font-size: 3em;
-	font-style: italic;
-	font-weight: bold;
 	counter-reset: verses;
+	letter-spacing: -2px;
+	font: 3.5em 'IM Fell Double Pica';
+	margin-left: -6px;
 	margin-bottom: 0;
 }
 
 h2{
 	display: block;
-	text-transform: uppercase;
 	margin-bottom: 1em;
-	font-size: 1.5em;
+	text-transform: uppercase;
+	word-spacing: 0.3em;
+	font: 1.4em "IM Fell Double Pica";
 	margin-top: 0;
 }
 
 h3{
 	font-size: 1em;
-	font-weight: normal;
-	font-style: normal;
 	margin-bottom: 0;
 	margin-top: 0;
+	font-weight: normal;
+	font-style: italic;
+}
+
+h3 em{
+	font-weight: normal;
+	font-style: normal;
 }
 
 ul#tags{
@@ -148,8 +110,8 @@ ul#tags li:before{
 
 p{
 	display: block;
-	margin-bottom: 1.5em;
-	margin-top: 0;
+	margin-bottom:  1.5em;
+	font-style: italic;
 }
 
 p.verse{
@@ -178,26 +140,30 @@ p:before{
 	right: 17px;
 	width: 0;
 	margin-left: -4px;
-	color: silver;
+	color: gray;
+	font-weight: normal;
+	font-style: normal;
 }
 
 #song span.chord{
 	display: inline-block;
-	color: silver;
 	font-size: 22px;
 	font-style: italic;
-	height: 22px;
-	margin: 0 -40px 13px -5px;
-	padding: 3px 0 0 5px;
+	height: 24px;
+	margin: -3px -40px 19px -5px;
+	padding: 0 0 0 5px;
 	vertical-align: text-bottom;
 	white-space: nowrap;
 	width: 40px;
+	font: 18px "Crimson Text";
 }
 
 #song span.note{
-	font-style: italic;
+	font-style: normal;
 	margin-bottom: 1.5em;
 	display: block;
+	font-weight: normal;
+	color: gray;
 }
 
 /* @end */
@@ -205,11 +171,9 @@ p:before{
 /* @group interaktion */
 
 span.edit{
-	cursor: text;
 }
 
 span.edit:hover{
-	text-decoration: underline;
 }
 
 #song textarea{
@@ -244,25 +208,7 @@ input#editor{
 	width: 2em;
 }
 
-#song span.chord.ziehen,
-#akkordListe span.chord.ziehen{
-	color: black;
-	background-color: rgba(203,202,204,0.8);
-	
-	border-radius: 5px;
-	border: 1px none #595959;
-	border-bottom-style: solid;
-	border-right-style: solid;
-	border-right-color: #bebebe;
-	margin-bottom: 36px;
-	margin-left: -6px;
-	overflow: hidden;
-	text-decoration: none;
-	margin-top: -24px;
-}
-
-.drop{
-	z-index: 1;
+.chord.ziehen{
 }
 	
 .dropHover{
@@ -282,12 +228,6 @@ a.ok{
 	color: black;
 	text-decoration: none;
 	cursor: pointer;
-	text-transform: uppercase;
-	font-weight: bold;
-}
-
-a.ok:hover{
-	text-decoration: underline;
 }
 
 /* @end */

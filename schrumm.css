@@ -1,6 +1,7 @@
-/* @override http://people.ee.ethz.ch/~maroggo/musik/schrumm.css */
 
-@import url(http://fonts.googleapis.com/css?family=OFL+Sorts+Mill+Goudy+TT:400,400italic|IM+Fell+Double+Pica:400,400italic|IM+Fell+Double+Pica+SC|Crimson+Text:600);
+@import url('fonts/OFLGoudyStMTT.ttf');
+@import url('fonts/IMFeDPrm28.ttf');
+@import url('fonts/CrimsonText-Semibold.ttf');
 
 songsheet {
 	width: 600px;

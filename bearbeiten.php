@@ -23,14 +23,14 @@ $liedHtml = $proc->transformToXML($xml);
 		<title>Bearbeite ”<?=$titel?>”</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link href="bearbeiten.css" rel="stylesheet" type="text/css" />
-		<script src="jquery.js"></script>
-		<script src="jqueryUI.js"></script>
+		<script src="lib/jquery.js"></script>
+		<script src="lib/jqueryUI.js"></script>
+		<script src="lib/Hyphenator.js"></script>
 		<script src="bearbeiten.js"></script>
 	</head>
 	<body>
 	<div id="werkzeuge">
 		<div id="akkordListe"></div>
-		<div id="papierkorb">X</div>
 	</div>
 	<?=$liedHtml?>
 	
