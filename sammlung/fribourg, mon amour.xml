@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE songsheet SYSTEM "http://people.ee.ethz.ch/~maroggo/musik/schrumm.dtd">
+<?xml-stylesheet type="text/css" href="http://people.ee.ethz.ch/~maroggo/musik/schrumm.css" ?>
+
+<songsheet>
+<info>
+	<title>Fribourg, mon amour</title>
+	<composer>Gustav</composer>
+	
+	<key original="0"> <chord name="cm" /> </key>
+	<year>1998</year>
+	<beat>8/8</beat>
+	
+	<tags>
+		<tag>Bilingue</tag>
+		<tag>Schnulzig</tag>
+	</tags>
+	
+</info>
+
+<song>
+	<stanza type="verse">
+		<chord name="cm" />Wie seltsam ver<chord name="fm6" />lassen<br />
+		<chord name="cm" />und verweht du <chord name="Bb" />aussiehst<chord name="G" /><br />
+		<chord name="cm" />Wie deine Farben verb<chord name="fm6" />lassen<br />
+		<chord name="cm" />wenn man vom Trubel ab<chord name="Bb" />biegt<chord name="G" /><br />
+		<br />
+		<chord name="fm" />Ach, wie dein Herz zu sch<chord name="cm" />lagen anfängt<br />
+		<chord name="Es" />wie der Stein sanft er<chord name="D" />bebt zugl<chord name="G" />eich<br />
+		<chord name="fm" />Ach, wie die Geschichte in die <chord name="cm" />Gassen sich hängt<br />
+		<chord name="Es" />Erst <chord name="D" />jetzt bist du r<chord name="G" />eich
+	</stanza>
+	<stanza type="verse">
+		Wie seltsam deine Häuser träumen<br />
+		als schwebten sie in and‘rer Zeit<br />
+		Wären aus Wolken all die Bäume<br />
+		du flögst wohl in die Vergangenheit<br />
+		<br />
+		Ach, hättest du nicht harte Glieder<br />
+		ich läge dir im weichen Schoss<br />
+		Ich würd‘ dir singen all die Lieder<br />
+		Wär‘ dein Ohr nur riesengross
+	</stanza>
+	<stanza type="chorus">
+		<chord name="cm" />Fribourg, mon a<chord name="fm" />mour<br />
+		<chord name="Es" />Fribourg, je t‘aime pour tou<chord name="G" />jours<br />
+		<chord name="cm" />Fribourg, mon a<chord name="fm" />mour<br />
+		<chord name="Es" />Fribourg, je t‘aime pour tou<chord name="G" />jours<br />
+	</stanza>
+	<stanza type="verse">
+		Wie seltsam deine Wasser fliessen<br />
+		Als wärst du eines Seemanns Hort<br />
+		Würd‘ sich ein Meer auf dich ergiessen<br />
+		Du taugtest noch als sicheren Port<br />
+		<br />
+		Ach, wär‘ dein Dom nicht längst am klingen<br />
+		baute ich einen dir aus reinstem Gold<br />
+		Trüge dein Geist nicht längst schon Schwingen<br />
+		hätte ich vom Himmel dir welche geholt<br />
+	</stanza>
+	
+	<note>Refrain</note>
+	
+</song>
+</songsheet>

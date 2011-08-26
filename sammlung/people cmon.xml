@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE songsheet SYSTEM "http://people.ee.ethz.ch/~maroggo/musik/schrumm.dtd">
+<?xml-stylesheet type="text/css" href="http://people.ee.ethz.ch/~maroggo/musik/schrumm.css" ?>
+
+<songsheet>
+<info>
+	<title>People C’mon</title>
+	<composer>Delta Spirit</composer>
+	
+	<key original="9"> <chord name="Cm" /> </key>
+	<year>2009</year>
+	<genre>Surf-Folk</genre>
+	<beat>8/8</beat>
+	
+</info>
+
+<song>
+	<stanza type="verse">
+		I'm a wandering <chord name="em" />soul<br />
+		I got no place of my <chord name="H" />own<br />
+		Well I got nothing to <chord name="em" />give<br />
+		Well I got nothing to <chord name="H" />show for it
+	</stanza>
+	
+	<stanza type="bridge">
+		And I'll be wondering <chord name="D" />all, for all my <chord name="em" />years<br />
+		What I be<chord name="H" />come no one could <chord name="am" />know
+	</stanza>
+	<stanza type="chorus">
+		If you're <chord name="em" />feeling what I'm feeling <chord name="H" />c'mon<br />
+		All you soul searching people <chord name="em" />c'mon
+	</stanza>
+	
+	<stanza type="verse">
+		And I got something to say my friends<br />
+		I will never lay down without a fight<br />
+		And when I die it will be the day<br />
+		When every one of my wrongs will be made right
+	</stanza>
+	
+	<stanza type="verse">
+		Only times gonna heal my pain<br />
+		Lord knows the mistakes I will make<br />
+		Yeah there'll be peace on my soul someday<br />
+		Reconside I'll be on my way
+	</stanza>
+	
+	<stanza type="bridge">
+		And I'll be wondering all, for all my years<br />
+		What I become no one could know
+	</stanza>
+	<stanza type="chorus">
+		If you're feeling what I'm feeling c'mon<br />
+		All you soul searching people c'mon<br />
+		Oh no, if you're feeling what I'm feeling c'mon<br />
+		All you soul searching people c'mon
+	</stanza>
+	
+	<note>Ba, badapap daa....</note>
+	
+	<stanza type="bridge">
+		And I'll be wondering all, for all these years<br />
+		What I become no one could know
+	</stanza>
+	<stanza type="chorus">
+		If you're feeling what I'm feeling c'mon<br />
+		All you soul searching people c'mon
+	</stanza>
+</song>
+</songsheet>

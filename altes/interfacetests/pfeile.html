@@ -1,0 +1,44 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+	<head>
+		<title></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link href="arrows.css" rel="stylesheet" type="text/css" />
+		<script src="../jquery.js"></script>
+		<script src="../jqueryUI.js"></script>
+		<script src="/hyphenator.js"></script>
+		<script type="text/javascript">
+		
+		
+	$(document).ready(function(){
+	
+		$('h2').droppable({
+			over: function(event, ui) { dragged.addClass('dropHover'); },
+			out: function(event, ui) { dragged.removeClass('dropHover'); },
+			addClasses: false
+		});
+		
+		$('p span').draggable({ 
+			revert: true,
+			cursorAt: { top: 5, left: 5 },
+			revertDuration: 300,
+			addClasses: false,
+			start: function() { $(this).addClass('ziehen'); dragged = $(this);},
+			stop: function() { $(this).removeClass('ziehen'); dragged = false;}
+		});
+	});
+
+		
+		
+		</script>
+	</head>
+	<body>
+	<h2 id="grab">Pa<em>ck</em>en!</h2>
+	<h2 id="down">bö</h2>
+	<h2 id="up">yeah</h2>
+	<h2 id="pinch">vorsichtig</h2>
+	
+	<p><span>Wör</span><span>ter </span><span>sil</span><span>ben</span><span>wei</span><span>se her</span><span>vor</span><span>he</span><span>ben</span><span> wä</span><span>re </span><span>wahr</span><span>schein</span><span>lich</span><span> et</span><span>was</span><span> prak</span><span>tisch</span><span>er</span></p>
+	</body>
+</html>

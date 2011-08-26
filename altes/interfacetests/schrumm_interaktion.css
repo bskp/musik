@@ -1,0 +1,196 @@
+/* @override http://people.ee.ethz.ch/~maroggo/musik/schrumm.css */
+
+/* @override http://people.ee.ethz.ch/~maroggo/musik/schrumm.css */
+
+@import url(http://fonts.googleapis.com/css?family=OFL+Sorts+Mill+Goudy+TT:400,400italic|IM+Fell+Double+Pica:400,400italic|IM+Fell+Double+Pica+SC|Crimson+Text:600);
+
+songsheet {
+	width: 600px;
+	margin-right: auto;
+	margin-left: auto;
+	padding: 2em;
+	font: 16px 'OFL Sorts Mill Goudy TT';
+}
+
+/* @group info */
+
+*{
+	cursor: default;
+}
+
+info{
+	margin-bottom: 1em;
+	display: block;
+}
+
+title{
+	display: block;
+	counter-reset: verses;
+	letter-spacing: -2px;
+	font: 3.5em 'IM Fell Double Pica';
+	margin-left: -6px;
+}
+
+title:hover, composer:hover, capo:hover, key:hover, year:hover, genre:hover, beat:hover{
+	color: #148bc1;
+	cursor: text;
+	background-color: #f3f5f8;
+	border-radius: 3px;
+}
+
+composer{
+	display: block;
+	margin-bottom: 1em;
+	text-transform: uppercase;
+	word-spacing: 0.3em;
+	font: 1.4em "IM Fell Double Pica";
+	margin-left: -3px;
+}
+
+capo, key, genre, year, beat, tag{
+	display: block;
+	font-style: italic;
+}
+
+key:before{
+	content: 'Tonart: ';
+	font-weight: normal;
+	font-style: normal;
+}
+
+key[original]:after{
+	content: '(+'attr(original) ' geg. Original)';
+	color: gray;
+}
+
+key[original="0"]:after{
+	content: '(Originaltonart)';
+	color: gray;
+}
+
+key chord:before{
+	content: attr(name);
+}
+
+year:before{
+	content: 'Jahr: ';
+	font-weight: normal;
+	font-style: normal;
+}
+
+genre:before{
+	content: 'Stil: ';
+	font-weight: normal;
+	font-style: normal;
+}
+beat:before{
+	content: 'Takt: ';
+	font-weight: normal;
+	font-style: normal;
+}
+
+capo:before{
+	content: 'Kapodaster: ' attr(name);
+	font-style: normal;
+	font-weight: normal;
+}
+capo:after{
+	content: '. Bund';
+}
+
+tags:before{
+	content: 'Schlagwörter: ';
+}
+
+tag{
+	display: inline;
+	list-style-type: none;
+	padding-left: 2px;
+}
+
+tag:after{
+	content: ', ';
+}
+
+tag:last-child:after{
+	content: none;
+}
+
+info note{
+	margin-top: 0.5em;
+	display: block;
+	color: gray;
+}
+
+/* @end */
+
+/* @group song */
+
+stanza{
+	display: block;
+	margin-bottom: 1.5em;
+	font-style: italic;
+}
+
+stanza[type="verse"]{
+	counter-increment: stanza;
+}
+
+stanza[type="verse"]:before{
+	content: counter(stanza) '.';
+}
+
+stanza[type="chorus"]:before{
+	content: 'R:';
+}
+
+stanza[type="bridge"]:before{
+	content: 'B:';
+}
+
+stanza[type="bridge"]{
+	margin-bottom: 0.5em;
+}
+
+stanza:before{
+	display: inline-block;
+	position: relative;
+	right: 17px;
+	width: 0;
+	margin-left: -4px;
+	color: gray;
+	font-weight: normal;
+	font-style: normal;
+}
+
+song note{
+	margin-bottom: 1.5em;
+	display: block;
+	color: gray;
+}
+
+song chord:after{
+	content: attr(name);
+}
+
+song chord{
+	display: inline-block;
+	position: relative;
+	width: 0;
+	top: -0.9em;
+	margin-top: 0.6em;
+	font: 18px "Crimson Text";
+}
+
+song chord:hover{
+	color: #148bc1;
+	cursor: pointer;
+	background-color: #f3f5f8;
+	border-radius: 3px;
+}
+
+br{
+	display: block;
+}
+
+/* @end */

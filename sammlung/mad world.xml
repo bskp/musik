@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE songsheet SYSTEM "http://people.ee.ethz.ch/~maroggo/musik/schrumm.dtd">
+<?xml-stylesheet type="text/css" href="http://people.ee.ethz.ch/~maroggo/musik/schrumm.css" ?>
+
+<songsheet>
+<info>
+	<title>Mad World</title>
+	<composer>Michael Andrews</composer>
+	
+	<key original="-1"> <chord name="Em" /> </key>
+	<year>2001</year>
+	<genre>Pop</genre>
+	<beat>4/4</beat>
+	
+</info>
+
+<song>
+	<stanza type="verse">
+		I'm a wandering <chord name="em" />soul<br />
+		I got no place of my <chord name="H" />own<br />
+		Well I got nothing to <chord name="em" />give<br />
+		Well I got nothing to <chord name="H" />show for it
+	</stanza>
+	
+	<stanza type="bridge">
+		And I'll be wondering <chord name="D" />all, for all my <chord name="em" />years<br />
+		What I be<chord name="H" />come no one could <chord name="am" />know
+	</stanza>
+	<stanza type="chorus">
+		If you're <chord name="em" />feeling what I'm feeling <chord name="H" />c'mon<br />
+		All you soul searching people <chord name="em" />c'mon
+	</stanza>
+</song>
+</songsheet>

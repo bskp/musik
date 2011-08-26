@@ -1,0 +1,49 @@
+/* @override http://people.ee.ethz.ch/~maroggo/musik/neu.css */
+
+body{
+	width: 600px;
+	font: 16px "Bauer Bodoni", Bodoni, Georgia, "Times New Roman", Times, serif;
+	margin-right: auto;
+	margin-left: auto;
+	padding: 2em;
+}
+
+input, textarea{
+	font: 16px "Bauer Bodoni", Bodoni, Georgia, "Times New Roman", Times, serif;
+	border-style: none;
+}
+
+/* @group info */
+
+input#title{
+	font-size: 3em;
+	font-weight: bold;
+	font-style: italic;
+}
+
+input#composer{
+	display: block;
+	text-transform: uppercase;
+	font-size: 1.5em;
+}
+
+#info span{
+	font-style: italic;
+}
+
+input#key{
+	width: 3em;
+}
+
+input#capo{
+	width: 1em;
+	text-align: right;
+}
+
+/* @end */
+
+/* @group song */
+
+
+
+/* @end */

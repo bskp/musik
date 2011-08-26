@@ -1,0 +1,35 @@
+<!ELEMENT songsheet ( info, song )>
+
+<!ELEMENT info (( title | composer | year | genre | key | capo | beat | tags)* , note?) >
+
+	<!ELEMENT title ( #PCDATA )>
+	<!ELEMENT composer ( #PCDATA )>
+	
+	<!ELEMENT year ( #PCDATA )>
+	<!ELEMENT genre ( #PCDATA )>
+	<!ELEMENT key ( chord )>
+	<!ATTLIST key original CDATA #IMPLIED>
+	<!ELEMENT capo ( #PCDATA )>
+	<!ELEMENT beat ( #PCDATA )>
+	
+	<!ELEMENT tags ( (tag)* )>
+		
+		<!ELEMENT tag ( #PCDATA )>
+
+
+<!ELEMENT song ( stanza | note )* >
+
+	<!ELEMENT stanza ( #PCDATA | br | chord | bar )* >
+	<!ATTLIST stanza
+		type ( chorus | verse | bridge ) #IMPLIED
+		id ID #IMPLIED
+	>
+	
+		<!ELEMENT br EMPTY>
+		<!ELEMENT chord EMPTY>
+		<!ELEMENT bar EMPTY>
+		<!ATTLIST chord 
+			name CDATA #REQUIRED
+		>
+		
+<!ELEMENT note ( #PCDATA )>

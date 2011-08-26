@@ -1,0 +1,40 @@
+/* @override http://localhost/~maroggo/maroggo%20ee/musik/interfacetests/arrows.css */
+
+*{
+	cursor: default;
+}
+
+#grab{
+	cursor: url('grab.png'), pointer;
+}
+
+#grab em{
+	font-style: normal;
+	font-weight: bold;
+	cursor:  url('pointer.png'), pointer;
+}
+
+#down{
+	cursor: url('down.png'), pointer;
+}
+#up{
+	cursor: url('up.png'), pointer;
+}
+#pinch{
+	cursor: url('pinch.png'), pointer;
+}
+
+p span:hover{
+	color: #148bc1;
+	cursor: url('pointer.png'), pointer;
+	background-color: #f3f5f8;
+	border-radius: 3px;
+}
+
+p span.ziehen{
+	cursor: url('grab.png'), pointer;
+}
+
+p span.dropHover{
+	cursor: url('pinch.png'), pointer;
+}

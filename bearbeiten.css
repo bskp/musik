@@ -1,0 +1,293 @@
+/* @override http://localhost/~matthiasroggo/maroggo%20ee/musik/bearbeiten.css */
+
+@font-face { font-family:BodoniBI; src:url(bodoni/BodoniFLF-BoldItalic.ttf); }
+@font-face { font-family:BodoniB; src:url(bodoni/BodoniFLF-Bold.ttf); }
+@font-face { font-family:BodoniI; src:url(bodoni/BodoniFLF-Italic.ttf); }
+@font-face { font-family:Bodoni; src:url(bodoni/BodoniFLF-Roman.ttf); }
+
+
+*{
+	cursor: default;
+}
+
+body {
+	width: 600px;
+	font: 16px "Bauer Bodoni", Bodoni, Georgia, "Times New Roman", Times, serif;
+	/*font-family: BodoniBI;*/
+	margin-right: auto;
+	margin-left: auto;
+	padding: 2em;
+}
+
+
+
+#werkzeuge{
+	position: fixed;
+	left: 130px;
+	margin-top: 128px;
+}
+
+#akkordListe{
+}
+
+#akkordListe .chord:hover, #papierkorb:hover{
+	opacity: 1;
+}
+
+#akkordListe .chord{
+	opacity: 0.25;
+	font-size: 22px;
+	font-style: italic;
+	padding: 3px 5px 0;
+	vertical-align: text-bottom;
+	white-space: nowrap;
+	
+	color: black;
+	background-color: rgba(203,202,204,0.8);
+	
+	border-radius: 5px;
+	border: 1px none #595959;
+	border-bottom-style: solid;
+	border-right-style: solid;
+	border-right-color: #bebebe;
+	overflow: hidden;
+	text-decoration: none;
+	margin: 0 0 4px;
+	display: block;
+}
+
+#papierkorb{
+	opacity: 0.25;
+	text-align: center;
+	width: 37px;
+	margin-top: 25px;
+	
+	color: black;
+	background-color: rgba(203,202,204,0.8);
+	
+	border-radius: 5px;
+	border: 1px none #595959;
+	border-bottom-style: solid;
+	border-right-style: solid;
+	border-right-color: #bebebe;
+	height: 25px;
+	font-weight: bold;
+	padding-top: 10px;
+	font-size: 21px;
+}
+
+span note{
+	margin-top: 0.5em;
+	display: block;
+	color: silver;
+	font-style: italic;
+}
+
+/* @group info */
+
+#info{
+	margin-bottom: 1em;
+	display: block;
+}
+
+h1{
+	display: block;
+	font-size: 3em;
+	font-style: italic;
+	font-weight: bold;
+	counter-reset: verses;
+	margin-bottom: 0;
+}
+
+h2{
+	display: block;
+	text-transform: uppercase;
+	margin-bottom: 1em;
+	font-size: 1.5em;
+	margin-top: 0;
+}
+
+h3{
+	font-size: 1em;
+	font-weight: normal;
+	font-style: normal;
+	margin-bottom: 0;
+	margin-top: 0;
+}
+
+ul#tags{
+	padding-left: 0;
+	margin-bottom: 0;
+}
+
+ul#tags li{
+	font-style: italic;
+	list-style-type: none;
+}
+
+ul#tags li:before{
+	content: '– ';
+}
+
+#addTag{
+	text-decoration: none;
+	color: black;
+	margin-left: -2px;
+	font-size: 14px;
+	line-height: 16px;
+}
+
+#addTag:hover{
+	cursor: pointer;
+	
+}
+
+/* @end */
+
+/* @group song */
+
+p{
+	display: block;
+	margin-bottom: 1.5em;
+	margin-top: 0;
+}
+
+p.verse{
+	counter-increment: stanza;
+}
+
+p.verse:before{
+	content: counter(stanza) '.';
+}
+
+p.chorus:before{
+	content: 'R:';
+}
+
+p.bridge:before{
+	content: 'B:';
+}
+
+p.bridge{
+	margin-bottom: 0.5em;
+}
+
+p:before{
+	display: inline-block;
+	position: relative;
+	right: 17px;
+	width: 0;
+	margin-left: -4px;
+	color: silver;
+}
+
+#song span.chord{
+	display: inline-block;
+	color: silver;
+	font-size: 22px;
+	font-style: italic;
+	height: 22px;
+	margin: 0 -40px 13px -5px;
+	padding: 3px 0 0 5px;
+	vertical-align: text-bottom;
+	white-space: nowrap;
+	width: 40px;
+}
+
+#song span.note{
+	font-style: italic;
+	margin-bottom: 1.5em;
+	display: block;
+}
+
+/* @end */
+
+/* @group interaktion */
+
+span.edit{
+	cursor: text;
+}
+
+span.edit:hover{
+	text-decoration: underline;
+}
+
+#song textarea{
+	font-weight: inherit;
+	text-transform: inherit;
+	font-family: inherit;
+	font-size: inherit;
+	font-style: inherit;
+	width: 100%;
+	height: 822px;
+	border-style: none;
+	overflow: hidden;
+}
+
+input#editor{
+	font-weight: inherit;
+	text-transform: inherit;
+	font-family: inherit;
+	font-size: inherit;
+	font-style: inherit;
+	color: black;
+	
+	margin: 0 0 0 -1px;
+	padding: 0;
+	border-style: none;
+	text-decoration: underline;
+}
+
+.chord input#editor,
+#key input#editor,
+#capo input#editor{
+	width: 2em;
+}
+
+#song span.chord.ziehen,
+#akkordListe span.chord.ziehen{
+	color: black;
+	background-color: rgba(203,202,204,0.8);
+	
+	border-radius: 5px;
+	border: 1px none #595959;
+	border-bottom-style: solid;
+	border-right-style: solid;
+	border-right-color: #bebebe;
+	margin-bottom: 36px;
+	margin-left: -6px;
+	overflow: hidden;
+	text-decoration: none;
+	margin-top: -24px;
+}
+
+.drop{
+	z-index: 1;
+}
+	
+.dropHover{
+	margin-left: -2px;
+	border-left: 2px solid #777;
+}
+
+#bearbeitenKnopf{
+	height: 1em;
+	margin-right: 0;
+	margin-left: -23px;
+	margin-bottom: -2em;
+	padding-top: 1em;
+}
+
+a.ok{
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+a.ok:hover{
+	text-decoration: underline;
+}
+
+/* @end */
