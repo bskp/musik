@@ -26,6 +26,7 @@ $liedHtml = $proc->transformToXML($xml);
 		<script src="lib/jquery.js"></script>
 		<script src="lib/jqueryUI.js"></script>
 		<script src="lib/Hyphenator.js"></script>
+		<script src="lib/patterns/de.js" type="text/javascript"></script>
 		<script src="bearbeiten.js"></script>
 	</head>
 	<body>
