@@ -1,3 +1,5 @@
+/* @override http://localhost/~maroggo/maroggo%20ee/musik/bearbeiten.css */
+
 /*
 @import url('fonts/OFLGoudyStMTT.ttf');
 @import url('fonts/IMFeDPrm28.ttf');
@@ -15,21 +17,39 @@ Krücke: */
 body {
 	width: 600px;
 	padding: 0 2em 2em;
-	margin-right: auto;
-	margin-left: auto;
 	font: 16px 'OFL Sorts Mill Goudy TT', serif;
+	margin-right: auto;
 	margin-top: 0;
+	margin-left: auto;
 }
 
 
 
 #werkzeuge{
+	position: fixed;
+	display: block;
+	width: 40px;
+	margin-left: -132px;
+	bottom: 0;
+	padding-bottom: 2em;
+	color: gray;
 }
 
 #akkordListe{
 }
 
 #akkordListe .chord{
+	display: inline-block;
+	height: 24px;
+	padding: 0 0 0 5px;
+	vertical-align: text-bottom;
+	white-space: nowrap;
+	font: 18px "Crimson Text";
+	width: 40px;
+	margin-right: 0px;
+	margin-top: -3px;
+	margin-left: -5px;
+	color: black;
 }
 
 span note{
@@ -147,15 +167,13 @@ p:before{
 
 #song span.chord{
 	display: inline-block;
-	font-size: 22px;
-	font-style: italic;
 	height: 24px;
-	margin: -3px -40px 19px -5px;
 	padding: 0 0 0 5px;
 	vertical-align: text-bottom;
 	white-space: nowrap;
-	width: 40px;
 	font: 18px "Crimson Text";
+	width: 40px;
+	margin: -3px -40px 19px -5px;
 }
 
 #song span.note{
@@ -166,14 +184,22 @@ p:before{
 	color: gray;
 }
 
+.drop.LL{
+	width: 40px;
+	display: inline-block;
+}
+
 /* @end */
 
 /* @group interaktion */
 
-span.edit{
+.edit{
+	cursor: text;
 }
 
-span.edit:hover{
+.edit:hover{
+	background-color: #fff44f;
+	border-radius: 5px;
 }
 
 #song textarea{
@@ -188,9 +214,11 @@ span.edit:hover{
 	overflow: hidden;
 }
 
-input#editor{
+#editor{
 	font-weight: inherit;
 	text-transform: inherit;
+	letter-spacing: inherit;
+	word-spacing: inherit;
 	font-family: inherit;
 	font-size: inherit;
 	font-style: inherit;
@@ -199,7 +227,6 @@ input#editor{
 	margin: 0 0 0 -1px;
 	padding: 0;
 	border-style: none;
-	text-decoration: underline;
 }
 
 .chord input#editor,
@@ -208,12 +235,19 @@ input#editor{
 	width: 2em;
 }
 
+.chord{
+	cursor: url('img/palm.gif'), pointer;
+}
+
 .chord.ziehen{
+	cursor: url('img/grab.gif'), pointer;
+	opacity: 0.3;
+	height: 0;
 }
 	
 .dropHover{
-	margin-left: -2px;
-	border-left: 2px solid #777;
+	background-color: #fff44f;
+	border-radius: 5px;
 }
 
 #bearbeitenKnopf{

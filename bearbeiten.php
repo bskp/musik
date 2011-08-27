@@ -30,8 +30,8 @@ $liedHtml = $proc->transformToXML($xml);
 		<script src="bearbeiten.js"></script>
 	</head>
 	<body>
-	<div id="werkzeuge">
-		<div id="akkordListe"></div>
+	<div id="werkzeuge">+
+		<div id="akkordListe"><span class="edit chord">Bb</span><span class="edit chord">Cm</span></div>
 	</div>
 	<?=$liedHtml?>
 	

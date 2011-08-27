@@ -1,47 +1,138 @@
 $(document).ready(function(){
-	
-	
-	// Setup Hyphenator
-	var hyphenatorSettings = {
-                hyphenchar :            '<em>AV</em>'
-        };
-        Hyphenator.config(hyphenatorSettings);
-	//alert(Hyphenator.hyphenate('Hyphenation is cool!', 'de'));
+
 	
 	$('#song p').replaceWith(function(){
-		var t = syllabe( $(this).html() , '<span class="drop">', '</span>');
+		var t = syllabe( $(this).html() );
 		return '<p class="'+$(this).attr('class')+'">'+t+'</p>'
 	});
 	
+	refreshChordlist();
+});
+
+
+var abschicken = function( titel ){
+ alert(parseSong());
+
+}
+
+
+var refreshChordlist = function(){
+	$('#akkordListe').empty(); // Listenelement leeren
 	
+	var akkorde = new Array();
+	
+	$('.chord').each(function() {
+		var dies = $(this).text();
+		if ( $.inArray(dies, akkorde) == -1 )
+			akkorde.push(dies);
+	});
+	
+	//akkorde.sort();
+	
+	// Akkorde in Liste schreiben
+	$(akkorde).each(function(){
+		$('#akkordListe').append('<span class="chord edit">'+this+'</span>');
+	});
+	
+	bindHandlers();
+}
+
+var bindHandlers = function(){
 	
 	$('.chord').draggable({ 
 		revert: true,
-		cursorAt: { top: 10, left: 25 },
-		revertDuration: 10,
+		//cursorAt: { top: 10, left: 25 },
+		revertDuration: 0,
 		addClasses: false,
 		scope: 'chords',
-		start: function() { $(this).addClass('ziehen'); },
-		stop: function() { $(this).removeClass('ziehen'); }
+		start: function() {
+			$(this).addClass('ziehen');
+			
+		},
+		stop: function(event, ui) { $(this).removeClass('ziehen'); }
 	});
 	
-	
 	$('.drop').droppable({
-		drop: function(event, ui) { $(this).before(ui.draggable).removeClass('dropHover'); },
+		drop: function(event, ui) { 
+			$(this).before(ui.draggable).removeClass('dropHover');
+			if ($(this).hasClass('LL')){
+				$(this).after('<span class="drop LL">&nbsp;</span>');
+				bindHandlers();
+			}
+			refreshChordlist();
+		},
 		over: function(event, ui) { $(this).addClass('dropHover'); },
 		out: function(event, ui) { $(this).removeClass('dropHover'); },
 		scope: 'chords',
 		addClasses: false
 	});
 	
+	var bindEditor = function(event, target){
+		
+		//Abbrechen, wenn bereits geöffnet
+		if (target.children().is('#editor')) return;
+		
+		//Abbrechen, wenn noch in Seitenleiste
+		if (target.parent().is('#akkordListe')) return;
+		
+		//Neue Eingabemaske erstellen
+		target.wrapInner(function() {
+			return '<input id="editor" value="' + target.text() + '" />';
+		});
+		
+		target.children('input').select();
+	}
 	
-});
-
-
-
-var syllabe = function(t, pre, post) {
+	$('.edit').click(function(event){ bindEditor(event, $(this)); });
+	$('.chord').unbind('click');
+	$('.chord').dblclick(function(event){ bindEditor(event, $(this)); });
 	
-	t = pre+t.replace(/(\s)*<br>(\s)*/g, post+'<br>'+pre)+post;
+	$('.edit').focusout(function(event){
+		
+		// Geöffnete Elemente schliessen und in DOM-Baum zurückschreiben
+		var offen = $("#editor");
+		offen.replaceWith(offen.val());
+		
+		// Akkord: Liste anpassen
+		if ($(this).hasClass('chord')) refreshChordlist();
+			
+	});
+	
+	$('.edit').keypress(function(event){
+		
+		if (event.which == 13) $(this).trigger('focusout'); // Element bei Enter verlassen
+	
+	});
+}
+
+
+var parseSong = function(){
+
+	var t;
+	
+	$('#song .chord').prepend('(').append(')');
+	$('#song p.verse').prepend('\n#');
+	$('#song p.chorus').prepend('\nR');
+	$('#song p.bridge').prepend('\nB');
+	$('#song span.note').prepend('{').append('}');
+	
+	t = $('#song').text();
+	
+	t = t.replace(/\t/g, '');
+	t = t.replace(/(\n){2,5}/g, '\n\n');
+	
+	return t;
+}
+
+var syllabe = function( t ) {
+	 var pre = '<span class="drop">';
+	 var preLL = '<span class="drop LL">';
+	 var post = '</span>';
+	
+	var lineStart = '';
+	var lineEnd = preLL+'&nbsp;'+post;
+	
+	t = lineStart+pre+t.replace(/(\s)*<br>(\s)*/g, post+lineEnd+'<br>'+lineStart+pre )+post+lineEnd;
 	
 	var i = -1;
 	var t_ = '';
