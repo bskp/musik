@@ -1,11 +1,11 @@
 $(document).ready(function(){
 
-	
+	/*
 	$('#song p').replaceWith(function(){
 		var t = syllabe( $(this).html() );
 		return '<p class="'+$(this).attr('class')+'">'+t+'</p>'
 	});
-	
+	*/
 	refreshChordlist();
 });
 

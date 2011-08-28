@@ -56,7 +56,7 @@
 </xsl:template>
 
 <xsl:template match="song">
- <div id="song">
+ <div id="song" contenteditable="true">
 	<xsl:apply-templates />
  </div>
 </xsl:template>
@@ -80,7 +80,7 @@
 </xsl:template>
 
 <xsl:template match="chord">
-	<span class="edit chord"><xsl:value-of select="@name" /></span>
+	<span class="edit chord" contenteditable="false"><xsl:value-of select="@name" /></span>
 </xsl:template>
 
 <xsl:template match="note">
