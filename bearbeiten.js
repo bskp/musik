@@ -110,8 +110,6 @@ var editLyrics = function(){
 
 	var t;
 	
-	t = t.replace(/\n/, '');
-	
 	$('#song .chord').prepend('(').append(')');
 	$('#song p.verse').prepend('\n\n#\n');
 	$('#song p.chorus').prepend('\n\nR\n');
