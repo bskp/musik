@@ -129,9 +129,16 @@ var editLyrics = function(){
 	});
 	
 	$('#werkzeuge').fadeOut(500);
-	
 	$('#tipps').fadeIn(500);
 	
+}
+
+var parseLyrics = function(){
+
+	refreshChordlist();
+	$('#werkzeuge').fadeIn(500);
+	$('#tipps').fadeOut(500);
+
 }
 
 var syllabe = function( t ) {
