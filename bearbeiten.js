@@ -109,23 +109,23 @@ var bindHandlers = function(){
 var editLyrics = function(){
 
 	var t;
-	
+	/*
 	$('#song .chord').prepend(' (').append(') ');
 	$('#song p.verse').prepend('#');
 	$('#song p.chorus').prepend('R');
 	$('#song p.bridge').prepend('B');
 	$('#song p br').prepend('\n');
 	$('#song span.note').prepend('{').append('}');
-	
+	*/
 	t = $('#song').text();
-	
+	/*
 	t = t.replace(/\t/g, '');
 	t = t.replace(/( )+/g, ' ');
 	t = t.replace(/(\n )+/g, '\n');
 	//t = t.replace(/(\n){2,5}/g, '\n\n');
-	
+	*/
 	$('#song p').parent().wrapInner(function() {
-		return '<textarea>' + t + '</textarea>';
+		return '<div id="songEditor" contenteditable="true">' + t + '</div>';
 	});
 	
 	$('#werkzeuge').fadeOut(500);
