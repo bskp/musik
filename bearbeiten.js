@@ -11,7 +11,7 @@ $(document).ready(function(){
 
 
 var abschicken = function( titel ){
- alert(parseSong());
+	alert(parseSong());
 
 }
 
@@ -106,22 +106,32 @@ var bindHandlers = function(){
 }
 
 
-var parseSong = function(){
+var editLyrics = function(){
 
 	var t;
 	
-	$('#song .chord').prepend('(').append(')');
-	$('#song p.verse').prepend('\n#');
-	$('#song p.chorus').prepend('\nR');
-	$('#song p.bridge').prepend('\nB');
+	$('#song .chord').prepend(' (').append(') ');
+	$('#song p.verse').prepend('#');
+	$('#song p.chorus').prepend('R');
+	$('#song p.bridge').prepend('B');
+	$('#song p br').prepend('\n');
 	$('#song span.note').prepend('{').append('}');
 	
 	t = $('#song').text();
 	
 	t = t.replace(/\t/g, '');
-	t = t.replace(/(\n){2,5}/g, '\n\n');
+	t = t.replace(/( )+/g, ' ');
+	t = t.replace(/(\n )+/g, '\n');
+	//t = t.replace(/(\n){2,5}/g, '\n\n');
 	
-	return t;
+	$('#song p').parent().wrapInner(function() {
+		return '<textarea>' + t + '</textarea>';
+	});
+	
+	$('#werkzeuge').fadeOut(500);
+	
+	$('#tipps').fadeIn(500);
+	
 }
 
 var syllabe = function( t ) {

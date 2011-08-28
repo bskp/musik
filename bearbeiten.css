@@ -25,14 +25,72 @@ body {
 
 
 
-#werkzeuge{
+#werkzeuge, #menu, #tipps{
 	position: fixed;
 	display: block;
 	width: 40px;
 	margin-left: -132px;
-	bottom: 0;
 	padding-bottom: 2em;
 	color: gray;
+	padding-top: 2.5em;
+}
+
+#werkzeuge{
+	bottom: 0;
+}
+
+#tipps{
+	bottom: 0;
+	width: 85px;
+	display: none;
+}
+
+#tipps p{
+	color: silver;
+	font-weight: normal;
+	font-style: normal;
+}
+
+#tipps p span{
+	color: black;
+}
+
+#menu{
+	top: 0;
+}
+
+.button{
+	opacity: 0.1;
+	display: block;
+	margin-bottom: 5px;
+	cursor: text;
+	border-radius: 5px;
+	width: 32px;
+	height: 32px;
+	padding: 3px;
+	cursor: pointer;
+}
+
+.button:hover{
+	opacity: 1;
+	background-color: #fff44f;
+}
+
+.button.active {
+	opacity: 1;
+}
+
+.button img{
+	cursor: pointer;
+}
+
+#werkzeuge .button{
+	width: 40px;
+	height: 21px;
+	padding-bottom: 0;
+	padding-top: 5px;
+	padding-left: 5px;
+	margin-bottom: 0;
 }
 
 #akkordListe{
@@ -48,7 +106,6 @@ body {
 	width: 40px;
 	margin-right: 0px;
 	margin-top: -3px;
-	margin-left: -5px;
 	color: black;
 }
 

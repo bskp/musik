@@ -30,11 +30,23 @@ $liedHtml = $proc->transformToXML($xml);
 		<script src="bearbeiten.js"></script>
 	</head>
 	<body>
-	<div id="werkzeuge">+
-		<div id="akkordListe"><span class="edit chord">Bb</span><span class="edit chord">Cm</span></div>
+	<div id="menu">
+		<a href="#" onclick="" title="Sichern" class="button" accesskey="s"><img src="img/accept.png" /></a>
+		<a href="#" title="Verwerfen" class="button" accesskey="x"><img src="img/cancel.png" /></a>
+		<a href="#" onclick="$(this).toggleClass('active'); editLyrics(); " title="Text bearbeiten" class="button" accesskey="e"><img src="img/edit.png" /></a>
+	</div>
+	<div id="werkzeuge">
+		<a href="#" class="button"><img src="img/minus.png" /></a>
+		<a href="#" class="button"><img src="img/plus.png" /></a>
+		<div id="akkordListe"></div>
+	</div>
+	<div id="tipps">
+		<p><span>(</span>Akkord<span>)</span></p>
+		<p><span>#</span> Strophe</p>
+		<p><span>B</span> Bridge</p>
+		<p><span>R</span> Refrain</p>
+		<p><span>{</span>Notiz<span>}</span></p>
 	</div>
 	<?=$liedHtml?>
-	
-	<a href="#" onclick="abschicken('<?=$titel?>');" class="ok">Sichern & zurückkehren</a>
 	</body>
 </html>
