@@ -110,19 +110,19 @@ var editLyrics = function(){
 
 	var t;
 	
-	$('#song .chord').prepend(' (').append(') ');
-	$('#song p.verse').prepend('#');
-	$('#song p.chorus').prepend('R');
-	$('#song p.bridge').prepend('B');
+	t = t.replace(/\n/, '');
+	
+	$('#song .chord').prepend('(').append(')');
+	$('#song p.verse').prepend('\n\n#\n');
+	$('#song p.chorus').prepend('\n\nR\n');
+	$('#song p.bridge').prepend('\n\nB\n');
 	$('#song p br').prepend('\n');
 	$('#song span.note').prepend('{').append('}');
 	
 	t = $('#song').text();
 	
 	t = t.replace(/\t/g, '');
-	t = t.replace(/( )+/g, ' ');
-	t = t.replace(/(\n )+/g, '\n');
-	//t = t.replace(/(\n){2,5}/g, '\n\n');
+	t = t.replace(/ \n/g, '\n'); // ! Achtung, nbsp!
 	
 	$('#song p').parent().wrapInner(function() {
 		return '<textarea>' + t + '</textarea>';
@@ -135,10 +135,26 @@ var editLyrics = function(){
 
 var parseLyrics = function(){
 
+	var t = $('#song textarea').val();
+	
+	t = t.replace(/#\n((.|\s)*?)\n\n(?=([RB{#<]))/g, '<p class="verse">$1</p>');
+	t = t.replace(/R\n((.|\s)*?)\n\n(?=([RB{#<]))/g, '<p class="chorus">$1</p>');
+	t = t.replace(/B\n((.|\s)*?)\n\n(?=([RB{#<]))/g, '<p class="bridge">$1</p>');
+	t = t.replace(/{((.|\s)*?)}/g, '<span class="note">$1</span>');
+	t = t.replace(/\((.*?)\)/g, '<span class="edit chord">$1</span>');
+	t = t.replace(/\n/g, '<br />\n');
+
+	$('#song').html(t);
+	
+	$('#song p').replaceWith(function(){
+		var t = syllabe( $(this).html() );
+		return '<p class="'+$(this).attr('class')+'">'+t+'</p>'
+	});
+	
 	refreshChordlist();
+
 	$('#werkzeuge').fadeIn(500);
 	$('#tipps').fadeOut(500);
-
 }
 
 var syllabe = function( t ) {
