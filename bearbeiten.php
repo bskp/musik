@@ -31,8 +31,8 @@ $liedHtml = $proc->transformToXML($xml);
 	</head>
 	<body>
 	<div id="menu">
-		<a href="#" onclick="" title="Sichern" class="button" accesskey="s"><img src="img/accept.png" /></a>
-		<a href="#" title="Verwerfen" class="button" accesskey="x"><img src="img/cancel.png" /></a>
+		<a href="#" onclick="sichern();" title="Sichern" class="button" accesskey="s"><img src="img/accept.png" /></a>
+		<a href="." title="Verwerfen" class="button" accesskey="x"><img src="img/cancel.png" /></a>
 		<a href="#" onclick="if ($(this).hasClass('active')){parseLyrics();} else {editLyrics();} $(this).toggleClass('active');" title="Text bearbeiten" class="button" accesskey="e"><img src="img/edit.png" /></a>
 	</div>
 	<div id="werkzeuge">

@@ -135,13 +135,14 @@ var parseLyrics = function(){
 
 	var t = $('#song textarea').val();
 	
-	t = t.replace(/#\n((.|\s)*?)\n\n(?=([RB{#<]))/g, '<p class="verse">$1</p>');
-	t = t.replace(/R\n((.|\s)*?)\n\n(?=([RB{#<]))/g, '<p class="chorus">$1</p>');
-	t = t.replace(/B\n((.|\s)*?)\n\n(?=([RB{#<]))/g, '<p class="bridge">$1</p>');
+	t = t.replace(/#\n((.|\n)*?)(\n\n(?=([#RB]\n))|(?=($|<)))/g, '<p class="verse">$1</p>');
+	t = t.replace(/R\n((.|\n)*?)(\n\n(?=([#RB]\n))|(?=($|<)))/g, '<p class="chorus">$1</p>');
+	t = t.replace(/B\n((.|\n)*?)(\n\n(?=([#RB]\n))|(?=($|<)))/g, '<p class="bridge">$1</p>');
+	
 	t = t.replace(/{((.|\s)*?)}/g, '<span class="note">$1</span>');
 	t = t.replace(/\((.*?)\)/g, '<span class="edit chord">$1</span>');
 	t = t.replace(/\n/g, '<br />\n');
-
+	
 	$('#song').html(t);
 	
 	$('#song p').replaceWith(function(){
