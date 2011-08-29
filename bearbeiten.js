@@ -1,5 +1,6 @@
 $(document).ready(function(){
-
+	
+	var titelAlt = $('h1').text();
 	
 	$('#song p').replaceWith(function(){
 		var t = syllabe( $(this).html() );
@@ -7,14 +8,43 @@ $(document).ready(function(){
 	});
 	
 	refreshChordlist();
+	
+	
+	// Test onhoverhandlers bei dialogfenstern
+	
+	$('#dialog a').mouseenter( function() {
+		var i = $('#dialogInfo');
+		
+		i.attr('alt', i.text());
+		i.text( $('#dialog a').attr('alt') );
+	});
+	
+	$('#dialog a').mouseleave( function() {
+		var i = $('#dialogInfo');
+
+		i.text( i.attr('alt') );
+	});
+	
+	
 });
 
 
-var abschicken = function( titel ){
-	alert(parseSong());
+var sichern = function( titel ){
+	
+	if ($('#editButton').hasClass('active')) parseLyrics();
+	
+	var titelNeu = $('h1').text();
+	
+	if (titelNeu != titelAlt){
+		
+	}
+	
+	
+	$.post("sichern.php", { aktion: 'check', datei: titelNeu }, function(data){
+		alert(data);
+	});
 
 }
-
 
 var refreshChordlist = function(){
 	$('#akkordListe').empty(); // Listenelement leeren
@@ -104,6 +134,7 @@ var bindHandlers = function(){
 	
 	});
 }
+
 
 
 var editLyrics = function(){

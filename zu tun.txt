@@ -9,6 +9,7 @@ IDEEN
 - Autocompletion Tags
 - Transponieren
 - Zurückspeichern
+- Titeländerung -> Neue Songdatei
 
 BUGS
 
