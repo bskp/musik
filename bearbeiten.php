@@ -28,11 +28,12 @@ $liedHtml = $proc->transformToXML($xml);
 		<script src="lib/Hyphenator.js"></script>
 		<script src="lib/patterns/de.js" type="text/javascript"></script>
 		<script src="bearbeiten.js"></script>
+		<script src="dialoge.js"></script>
 	</head>
 	<body>
 	<div id="menu">
-		<a href="#" onclick="sichern('<?=$titel?>');" title="Sichern" class="button" accesskey="s"><img src="img/accept.png" /></a>
-		<a href="." title="Verwerfen" class="button" accesskey="x"><img src="img/cancel.png" /></a>
+		<a href="#" onclick="sichern();" title="Sichern" class="button" accesskey="s"><img src="img/accept.png" /></a>
+		<a href="#" title="Verwerfen" onclick="verwerfen();" class="button" accesskey="x"><img src="img/cancel.png" /></a>
 		<a href="#" onclick="if ($(this).hasClass('active')){parseLyrics();} else {editLyrics();} $(this).toggleClass('active');" title="Text bearbeiten" class="button" id="editButton" accesskey="e"><img src="img/edit.png" /></a>
 	</div>
 	<div id="werkzeuge">
@@ -47,13 +48,7 @@ $liedHtml = $proc->transformToXML($xml);
 		<p><span>R</span> Refrain</p>
 		<p><span>{</span>Notiz<span>}</span></p>
 	</div>
-	<div id="dialog">
-		<h3>Liedtitel wurde geändert!</h3>
-		<p id="dialogInfo">Was soll weiter geschehen?</p>
-		<a href="#" class="button" alt="Benennt das aktuelle Lied um und überschreibt die alte Fassung"><img src="img/accept_16.png" /> ändern</a>
-		<a href="#" class="button" alt="Behält das ursprüngliche Lied und speichert die Änderungen unter dem neuen Titel"><img src="img/plus.png" /> hinzufügen</a>
-		<a href="#" class="button" alt="Schliesst das Fenster und kehrt zum Lied zurück"><img src="img/cancel_16.png" /> Zurück</a>
-	</div>
+	<div id="dialog"><?php include('dialoge.php'); ?></div>
 	
 	<?=$liedHtml?>
 	</body>

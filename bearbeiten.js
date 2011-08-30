@@ -1,6 +1,10 @@
+var titelAlt;
+var bearbeitet = false;
+var leerText = 'Bitte ausfüllen!';
+
 $(document).ready(function(){
 	
-	var titelAlt = $('h1').text();
+	titelAlt = $('h1').text();
 	
 	$('#song p').replaceWith(function(){
 		var t = syllabe( $(this).html() );
@@ -13,35 +17,57 @@ $(document).ready(function(){
 	// Test onhoverhandlers bei dialogfenstern
 	
 	$('#dialog a').mouseenter( function() {
-		var i = $('#dialogInfo');
-		
-		i.attr('alt', i.text());
+		var i = $(this).parent('');
+		alert(i.html());
+		i.data('text', i.html())
 		i.text( $(this).attr('alt') );
 	});
 	
 	$('#dialog a').mouseleave( function() {
-		var i = $('#dialogInfo');
+		var i = $(this).parent().filter('.dialogInfo');
 
-		i.text( i.attr('alt') );
+		i.html( i.data('text') );
 	});
 	
 	
 });
 
-var sichern = function( titel ){
+var sichern = function(){
 	
 	if ($('#editButton').hasClass('active')) parseLyrics();
 	
 	var titelNeu = $('h1').text();
 	
 	if (titelNeu != titelAlt && titelAlt != 'Titelplatzhalter'){
-		
+		dialog('umbenennen', { alt: titelAlt, neu: titelNeu });
 	}
 	
-	
 	$.post("sichern.php", { aktion: 'check', datei: titelNeu }, function(data){
-		alert(data);
+		//alert(data);
 	});
+
+}
+
+var verwerfen = function(){
+
+	if (bearbeitet) dialog('verwerfen');
+
+}
+
+var dialog = function( meldung, args ){
+
+	for (var arg in args)
+    	$('#'+meldung+' em#'+arg).text(args[arg]); // Platzhalter ersetzen
+
+	$('#dialog').fadeIn();
+	$('#'+meldung).slideDown( 200 );
+
+}
+
+var dialogSchliessen = function(){
+
+	$('#dialog').fadeOut('fast');
+	$('#dialog div').slideUp( 200 );
 
 }
 
@@ -89,6 +115,7 @@ var bindHandlers = function(){
 				bindHandlers();
 			}
 			refreshChordlist();
+			bearbeitet = true;
 		},
 		over: function(event, ui) { $(this).addClass('dropHover'); },
 		out: function(event, ui) { $(this).removeClass('dropHover'); },
@@ -120,7 +147,10 @@ var bindHandlers = function(){
 		
 		// Geöffnete Elemente schliessen und in DOM-Baum zurückschreiben
 		var offen = $("#editor");
+		if (offen.val() == '') offen.val(leerText);
+		
 		offen.replaceWith(offen.val());
+		bearbeitet = true;
 		
 		// Akkord: Liste anpassen
 		if ($(this).hasClass('chord')) refreshChordlist();
@@ -158,6 +188,8 @@ var editLyrics = function(){
 	
 	$('#werkzeuge').fadeOut(500);
 	$('#tipps').fadeIn(500);
+	
+	bearbeitet = true;
 	
 }
 
