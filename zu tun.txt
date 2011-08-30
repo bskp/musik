@@ -13,7 +13,6 @@ IDEEN
 
 BUGS
 
-- Erkennung der letzten Strophe
 - \n
 
 GEMECHT

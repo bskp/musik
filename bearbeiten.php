@@ -48,10 +48,11 @@ $liedHtml = $proc->transformToXML($xml);
 		<p><span>{</span>Notiz<span>}</span></p>
 	</div>
 	<div id="dialog">
-		<h3>Liedtitel wurde geändert</h3>
+		<h3>Liedtitel wurde geändert!</h3>
 		<p id="dialogInfo">Was soll weiter geschehen?</p>
-		<a href="#" class="button" alt="Benennt das aktuelle Lied um und überschreibt die alte Fassung">Titel ändern</a>
-		<a href="#" class="button" alt="Behält das ursprüngliche Lied und speichert die Änderungen unter dem neuen Titel">Lied hinzufügen</a>
+		<a href="#" class="button" alt="Benennt das aktuelle Lied um und überschreibt die alte Fassung"><img src="img/accept_16.png" /> ändern</a>
+		<a href="#" class="button" alt="Behält das ursprüngliche Lied und speichert die Änderungen unter dem neuen Titel"><img src="img/plus.png" /> hinzufügen</a>
+		<a href="#" class="button" alt="Schliesst das Fenster und kehrt zum Lied zurück"><img src="img/cancel_16.png" /> Zurück</a>
 	</div>
 	
 	<?=$liedHtml?>

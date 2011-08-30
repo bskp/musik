@@ -16,7 +16,7 @@ $(document).ready(function(){
 		var i = $('#dialogInfo');
 		
 		i.attr('alt', i.text());
-		i.text( $('#dialog a').attr('alt') );
+		i.text( $(this).attr('alt') );
 	});
 	
 	$('#dialog a').mouseleave( function() {
@@ -28,14 +28,13 @@ $(document).ready(function(){
 	
 });
 
-
 var sichern = function( titel ){
 	
 	if ($('#editButton').hasClass('active')) parseLyrics();
 	
 	var titelNeu = $('h1').text();
 	
-	if (titelNeu != titelAlt){
+	if (titelNeu != titelAlt && titelAlt != 'Titelplatzhalter'){
 		
 	}
 	
