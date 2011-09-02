@@ -12,41 +12,39 @@ $(document).ready(function(){
 	});
 	
 	refreshChordlist();
-	
-	
-	// Test onhoverhandlers bei dialogfenstern
-	
-	$('#dialog a').mouseenter( function() {
-		var i = $(this).parent('');
-		alert(i.html());
-		i.data('text', i.html())
-		i.text( $(this).attr('alt') );
-	});
-	
-	$('#dialog a').mouseleave( function() {
-		var i = $(this).parent().filter('.dialogInfo');
-
-		i.html( i.data('text') );
-	});
-	
+	//Bindhandlers inbegriffen
 	
 });
 
 var sichern = function(){
 	
-	if ($('#editButton').hasClass('active')) parseLyrics();
 	
+	if ($('#editButton').hasClass('active')) parseLyrics();
 	var titelNeu = $('h1').text();
 	
 	if (titelNeu != titelAlt && titelAlt != 'Titelplatzhalter'){
 		dialog('umbenennen', { alt: titelAlt, neu: titelNeu });
 	}
 	
-	$.post("sichern.php", { aktion: 'check', datei: titelNeu }, function(data){
+	$.post("db.php", { aktion: 'check', datei: titelNeu }, function(data){
 		//alert(data);
 	});
 
 }
+
+var dialogSichern = function( sichern, loeschen ){
+
+	dialogSchliessen();
+	
+	alert('hä');
+	
+	$.post("db.php", { aktion: 'sichern', datei: args['sichern'], daten: $('body').html() }, alert(data));
+	
+	if ( args['loeschen'] ) $.post("db.php", { aktion: 'loeschen', datei: args['loeschen']}, alert(data))
+	
+	
+}
+
 
 var verwerfen = function(){
 
@@ -161,6 +159,19 @@ var bindHandlers = function(){
 		
 		if (event.which == 13) $(this).trigger('focusout'); // Element bei Enter verlassen
 	
+	});
+	
+	$('#dialog a').mouseenter( function() {
+		var i = $(this).siblings('.dialogInfo');
+		
+		i.data('text', i.html());
+		i.text( $(this).attr('alt') );
+	});
+	
+	$('#dialog a').mouseleave( function() {
+		var i = $(this).siblings('.dialogInfo');
+
+		i.html( i.data('text') );
 	});
 }
 
