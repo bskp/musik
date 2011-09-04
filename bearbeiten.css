@@ -71,7 +71,7 @@ body {
 	cursor: pointer;
 }
 
-div .button:hover{
+#werkzeuge .button:hover, div .button:hover{
 	opacity: 1;
 	background-color: #fff44f;
 }

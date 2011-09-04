@@ -1,7 +1,7 @@
 <?php
 
-$titel = 'fribourg, mon amour.xml';
-//$titel = 'lours.xml';
+//$titel = 'fribourg, mon amour.xml';
+$titel = 'lours.xml';
 
 
 // Load the XML source
@@ -49,6 +49,6 @@ $liedHtml = $proc->transformToXML($xml);
 	</div>
 	<div id="dialog"><?php include('dialoge.php'); ?></div>
 	
-	<?=$liedHtml?>
+	<div id="ausXML"><?=$liedHtml?></div>
 	</body>
 </html>

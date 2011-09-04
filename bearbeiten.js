@@ -27,30 +27,41 @@ var Lied = {
 	
 	sichern: function(){
 		alert('in db schreiben: '+this.titelNeu);
-		location.href = 'index.php';
+		
+		$.post("db.php", { Aktion: 'sichern', datei: this.titelNeu, html: $('#ausXML').html() }, function(data) {
+		   alert(data);
+		 });
 	},
 	
 	ersetzen: function(){
 		Lied.sichern();
-		alert('von db löschen: '+this.titelAlt);
+		//$.post("db.php", { aktion: 'loeschen', datei: this.titelAlt }, alert(data));
 	}
-	
 };
 
 //  UI
 var UI = {
 	verwerfen: function(){
 		if (Lied.bearbeitet) Dialog.zeigen('verwerfen');
+		else location.href = 'index.php';
 	},
 	
 	sichern: function(){
+		if (!Lied.bearbeitet){
+			location.href = 'index.php';
+			return;
+		}
+		
 		if (Lied.textModus) Parser.machHTML();
 		Lied.titelNeu = $('h1').text();
 		
 		if (Lied.titelNeu != Lied.titelAlt && Lied.titelAlt != B.leerTitel){
 			Dialog.zeigen('umbenennen', { alt: Lied.titelAlt, neu: Lied.titelNeu });
 		}
-		else Lied.sichern();
+		else {
+			Lied.sichern();
+			location.href = 'index.php';
+		}
 	},
 		/*
 		$.post("db.php", { aktion: 'check', datei: titelNeu }, function(data){
@@ -162,19 +173,13 @@ var Parser = {
 		
 		$('#song').html(t);
 		
-		/*
-		$('#song p').replaceWith(function(){
-			var t = Parser.machSilben( $(this).html() );
-			return '<p class="'+$(this).attr('class')+'">'+t+'</p>'
-		});
-		*/
-		//NEU
 		Parser.machSilben();
 		
 		UI.akkordListeLaden();
 	
 		$('#werkzeuge').fadeIn(500);
 		$('#tipps').fadeOut(500);
+		
 		Lied.bearbeitet = true;
 	},
 	
@@ -224,6 +229,9 @@ var Parser = {
 
 // Document Ready
 $(document).ready(function(){
+
+	$.ajaxSetup({async:false});
+	
 	Lied.titelAlt = $('h1').text();
 	
 	Parser.machSilben();
@@ -300,19 +308,3 @@ var Dialog = {
 		return false; // "href" bitte nicht aufrufen!
 	}
 };
-
-/*
-var dialogSichern = function( sichern, loeschen ){
-
-	dialogSchliessen();
-	
-	alert('hä');
-	
-	$.post("db.php", { aktion: 'sichern', datei: args['sichern'], daten: $('body').html() }, alert(data));
-	
-	if ( args['loeschen'] ) $.post("db.php", { aktion: 'loeschen', datei: args['loeschen']}, alert(data))
-	
-	
-}
-
-*/
