@@ -1,28 +1,30 @@
-
-
+//  Allgemeine Einstellungen 
 var B = {
 	leerText: 'Bitte ausfüllen',
 	leerTitel: 'Titel bitte angeben!'
 };
 
+//  Lied
 var Lied = {
 	titelAlt: '',
 	titelNeu: '',
 	bearbeitet: false,
-	textModus: false
+	textModus: false,
 	
 	sichern: function(){
+		alert('in db schreiben');
 	}
 	
 };
 
+//  UI
 var UI = {
 	verwerfen: function(){
 		if (Lied.bearbeitet) Dialog.zeigen('verwerfen');
 	},
 	
 	sichern: function(){
-		if ($('#editButton').hasClass('active')) parseLyrics();  //unschön!
+		if (Lied.textModus) Parser.machHTML();
 		Lied.titelNeu = $('h1').text();
 		
 		if (Lied.titelNeu != Lied.titelAlt && Lied.titelAlt != B.leerTitel){
@@ -41,35 +43,112 @@ var UI = {
 		if (Lied.textModus){
 			bKnopf.removeClass('active');
 			Parser.machHTML();
+			Lied.textModus = false;
 		}
 		else{
 			bKnopf.addClass('active');
 			Parser.machCode();
+			Lied.textModus = true;
 		}
 	}
 };
 
-
+//  Parser
 var Parser = {
-	ziel: $('#song'),
+	machCode: function(){
 	
-	machCode = function(){
+		var t;
+		
+		$('#song .chord').prepend('(').append(')');
+		$('#song p.verse').prepend('\n\n#\n');
+		$('#song p.chorus').prepend('\n\nR\n');
+		$('#song p.bridge').prepend('\n\nB\n');
+		$('#song p br').prepend('\n');
+		$('#song span.note').prepend('{').append('}');
+		
+		t = $('#song').text();
+		
+		t = t.replace(/\t/g, '');
+		t = t.replace(/ \n/g, '\n'); // ! Achtung, nbsp!
+		
+		$('#song p').parent().wrapInner(function() {
+			return '<textarea>' + t + '</textarea>';
+		});
+		
+		$('#werkzeuge').fadeOut(500);
+		$('#tipps').fadeIn(500);
 	},
 	
-	machHTML = function(){
+	machHTML: function(){
+		var t = $('#song textarea').val();
+		
+		t = t.replace(/#\n((.|\n)*?)(\n\n(?=([#RB]\n))|(?=($|<)))/g, '<p class="verse">$1</p>');
+		t = t.replace(/R\n((.|\n)*?)(\n\n(?=([#RB]\n))|(?=($|<)))/g, '<p class="chorus">$1</p>');
+		t = t.replace(/B\n((.|\n)*?)(\n\n(?=([#RB]\n))|(?=($|<)))/g, '<p class="bridge">$1</p>');
+		
+		t = t.replace(/{((.|\s)*?)}/g, '<span class="note">$1</span>');
+		t = t.replace(/\((.*?)\)/g, '<span class="edit chord">$1</span>');
+		t = t.replace(/\n/g, '<br />\n');
+		
+		$('#song').html(t);
+		
+		$('#song p').replaceWith(function(){
+			var t = Parser.machSilben( $(this).html() );
+			return '<p class="'+$(this).attr('class')+'">'+t+'</p>'
+		});
+		
+		refreshChordlist();
+	
+		$('#werkzeuge').fadeIn(500);
+		$('#tipps').fadeOut(500);
+		Lied.bearbeitet = true;
 	},
 	
-	machSilben = function(){
-	},
+	machSilben: function( t ){
+		 var pre = '<span class="drop">';
+		 var preLL = '<span class="drop LL">';
+		 var post = '</span>';
+		
+		var lineStart = '';
+		var lineEnd = preLL+'&nbsp;'+post;
+		
+		t = lineStart+pre+t.replace(/(\s)*<br>(\s)*/g, post+lineEnd+'<br>'+lineStart+pre )+post+lineEnd;
+		
+		var i = -1;
+		var t_ = '';
+		var inBrack = false;
+		var inTag = false;
+		
+		while( t[++i] != undefined ){
+			
+			if (t[i] == '>') inBrack = false;
+			if (t[i] == '<') inBrack = true;
+			
+			if ( t[i] == ' ' && !inBrack && !inTag ){
+				t_ += post+t[i]+pre;
+			} else {
+				t_ += t[i];
+			}
+		}
+	
+		t = t_;
+		
+		var hyphenatorSettings = { hyphenchar: post+pre };
+	        
+		Hyphenator.config(hyphenatorSettings);
+		t = Hyphenator.hyphenate(t, 'de');
+		
+		return t;
+	}
 
 };
 
 $(document).ready(function(){
 	
-	lied.titelAlt = $('h1').text();
+	Lied.titelAlt = $('h1').text();
 	
 	$('#song p').replaceWith(function(){
-		var t = syllabe( $(this).html() );
+		var t = Parser.machSilben( $(this).html() );
 		return '<p class="'+$(this).attr('class')+'">'+t+'</p>'
 	});
 	
@@ -78,6 +157,7 @@ $(document).ready(function(){
 	
 });
 
+//  Dialog
 var Dialog = {
 
 	zeigen: function( meldung, args ){
@@ -96,6 +176,7 @@ var Dialog = {
 	
 };
 
+/*
 var dialogSichern = function( sichern, loeschen ){
 
 	dialogSchliessen();
@@ -109,6 +190,7 @@ var dialogSichern = function( sichern, loeschen ){
 	
 }
 
+*/
 var refreshChordlist = function(){
 	$('#akkordListe').empty(); // Listenelement leeren
 	
@@ -130,6 +212,8 @@ var refreshChordlist = function(){
 	bindHandlers();
 }
 
+
+// Alte Methoden
 var bindHandlers = function(){
 	
 	$('.chord').draggable({ 
@@ -213,99 +297,4 @@ var bindHandlers = function(){
 
 		i.html( i.data('text') );
 	});
-}
-
-
-
-var editLyrics = function(){
-
-	var t;
-	
-	$('#song .chord').prepend('(').append(')');
-	$('#song p.verse').prepend('\n\n#\n');
-	$('#song p.chorus').prepend('\n\nR\n');
-	$('#song p.bridge').prepend('\n\nB\n');
-	$('#song p br').prepend('\n');
-	$('#song span.note').prepend('{').append('}');
-	
-	t = $('#song').text();
-	
-	t = t.replace(/\t/g, '');
-	t = t.replace(/ \n/g, '\n'); // ! Achtung, nbsp!
-	
-	$('#song p').parent().wrapInner(function() {
-		return '<textarea>' + t + '</textarea>';
-	});
-	
-	$('#werkzeuge').fadeOut(500);
-	$('#tipps').fadeIn(500);
-	
-	bearbeitet = true;
-	
-}
-
-var parseLyrics = function(){
-
-	var t = $('#song textarea').val();
-	
-	t = t.replace(/#\n((.|\n)*?)(\n\n(?=([#RB]\n))|(?=($|<)))/g, '<p class="verse">$1</p>');
-	t = t.replace(/R\n((.|\n)*?)(\n\n(?=([#RB]\n))|(?=($|<)))/g, '<p class="chorus">$1</p>');
-	t = t.replace(/B\n((.|\n)*?)(\n\n(?=([#RB]\n))|(?=($|<)))/g, '<p class="bridge">$1</p>');
-	
-	t = t.replace(/{((.|\s)*?)}/g, '<span class="note">$1</span>');
-	t = t.replace(/\((.*?)\)/g, '<span class="edit chord">$1</span>');
-	t = t.replace(/\n/g, '<br />\n');
-	
-	$('#song').html(t);
-	
-	$('#song p').replaceWith(function(){
-		var t = syllabe( $(this).html() );
-		return '<p class="'+$(this).attr('class')+'">'+t+'</p>'
-	});
-	
-	refreshChordlist();
-
-	$('#werkzeuge').fadeIn(500);
-	$('#tipps').fadeOut(500);
-}
-
-var syllabe = function( t ) {
-	 var pre = '<span class="drop">';
-	 var preLL = '<span class="drop LL">';
-	 var post = '</span>';
-	
-	var lineStart = '';
-	var lineEnd = preLL+'&nbsp;'+post;
-	
-	t = lineStart+pre+t.replace(/(\s)*<br>(\s)*/g, post+lineEnd+'<br>'+lineStart+pre )+post+lineEnd;
-	
-	var i = -1;
-	var t_ = '';
-	var inBrack = false;
-	var inTag = false;
-	
-	while( t[++i] != undefined ){
-		
-		if (t[i] == '>') inBrack = false;
-		if (t[i] == '<') inBrack = true;
-		
-		if ( t[i] == ' ' && !inBrack && !inTag ){
-			t_ += post+t[i]+pre;
-		} else {
-			t_ += t[i];
-		}
-	}
-
-	t = t_;
-	
-	var hyphenatorSettings = {
-                hyphenchar :            post+pre
-        };
-        
-	Hyphenator.config(hyphenatorSettings);
-	
-	//t = t.replace(/(\b)\s(\b)/g, '$1'+post+pre+'$2');
-	t = Hyphenator.hyphenate(t, 'de');
-	
-	return t;
 }
