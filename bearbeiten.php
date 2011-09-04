@@ -28,13 +28,12 @@ $liedHtml = $proc->transformToXML($xml);
 		<script src="lib/Hyphenator.js"></script>
 		<script src="lib/patterns/de.js" type="text/javascript"></script>
 		<script src="bearbeiten.js"></script>
-		<script src="dialoge.js"></script>
 	</head>
 	<body>
 	<div id="menu">
-		<a href="#" onclick="sichern();" title="Sichern" class="button" accesskey="s"><img src="img/accept.png" /></a>
-		<a href="#" title="Verwerfen" onclick="verwerfen();" class="button" accesskey="x"><img src="img/cancel.png" /></a>
-		<a href="#" onclick="if ($(this).hasClass('active')){parseLyrics();} else {editLyrics();} $(this).toggleClass('active');" title="Text bearbeiten" class="button" id="editButton" accesskey="e"><img src="img/edit.png" /></a>
+		<a href="#" onclick="UI.sichern();" title="Sichern" class="button" accesskey="s"><img src="img/accept.png" /></a>
+		<a href="#" title="Verwerfen" onclick="UI.verwerfen();" class="button" accesskey="x"><img src="img/cancel.png" /></a>
+		<a href="#" onclick="UI.bearbeiten( $(this) );" title="Text bearbeiten" class="button" id="editButton" accesskey="e"><img src="img/edit.png" /></a>
 	</div>
 	<div id="werkzeuge">
 		<a href="#" class="button"><img src="img/minus.png" /></a>

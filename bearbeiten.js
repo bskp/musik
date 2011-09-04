@@ -1,10 +1,72 @@
-var titelAlt;
-var bearbeitet = false;
-var leerText = 'Bitte ausfüllen!';
+
+
+var B = {
+	leerText: 'Bitte ausfüllen',
+	leerTitel: 'Titel bitte angeben!'
+};
+
+var Lied = {
+	titelAlt: '',
+	titelNeu: '',
+	bearbeitet: false,
+	textModus: false
+	
+	sichern: function(){
+	}
+	
+};
+
+var UI = {
+	verwerfen: function(){
+		if (Lied.bearbeitet) Dialog.zeigen('verwerfen');
+	},
+	
+	sichern: function(){
+		if ($('#editButton').hasClass('active')) parseLyrics();  //unschön!
+		Lied.titelNeu = $('h1').text();
+		
+		if (Lied.titelNeu != Lied.titelAlt && Lied.titelAlt != B.leerTitel){
+			dialog.zeigen('umbenennen', { alt: Lied.titelAlt, neu: Lied.titelNeu });
+		}
+		else Lied.sichern();
+	},
+		/*
+		$.post("db.php", { aktion: 'check', datei: titelNeu }, function(data){
+			//alert(data);
+		});
+	*/
+	
+	bearbeiten: function( bKnopf ){
+	
+		if (Lied.textModus){
+			bKnopf.removeClass('active');
+			Parser.machHTML();
+		}
+		else{
+			bKnopf.addClass('active');
+			Parser.machCode();
+		}
+	}
+};
+
+
+var Parser = {
+	ziel: $('#song'),
+	
+	machCode = function(){
+	},
+	
+	machHTML = function(){
+	},
+	
+	machSilben = function(){
+	},
+
+};
 
 $(document).ready(function(){
 	
-	titelAlt = $('h1').text();
+	lied.titelAlt = $('h1').text();
 	
 	$('#song p').replaceWith(function(){
 		var t = syllabe( $(this).html() );
@@ -16,21 +78,23 @@ $(document).ready(function(){
 	
 });
 
-var sichern = function(){
+var Dialog = {
+
+	zeigen: function( meldung, args ){
+		for (var arg in args)
+    	$('#'+meldung+' em#'+arg).text(args[arg]); // Platzhalter ersetzen
+
+		$('#dialog').fadeIn();
+		$('#'+meldung).slideDown( 200 );
+	},
 	
-	
-	if ($('#editButton').hasClass('active')) parseLyrics();
-	var titelNeu = $('h1').text();
-	
-	if (titelNeu != titelAlt && titelAlt != 'Titelplatzhalter'){
-		dialog('umbenennen', { alt: titelAlt, neu: titelNeu });
+	schliessen: function(){
+		$('#dialog').fadeOut('fast');
+		$('#dialog div').slideUp( 200 );
+		return false; // "href" bitte nicht aufrufen!
 	}
 	
-	$.post("db.php", { aktion: 'check', datei: titelNeu }, function(data){
-		//alert(data);
-	});
-
-}
+};
 
 var dialogSichern = function( sichern, loeschen ){
 
@@ -43,30 +107,6 @@ var dialogSichern = function( sichern, loeschen ){
 	if ( args['loeschen'] ) $.post("db.php", { aktion: 'loeschen', datei: args['loeschen']}, alert(data))
 	
 	
-}
-
-
-var verwerfen = function(){
-
-	if (bearbeitet) dialog('verwerfen');
-
-}
-
-var dialog = function( meldung, args ){
-
-	for (var arg in args)
-    	$('#'+meldung+' em#'+arg).text(args[arg]); // Platzhalter ersetzen
-
-	$('#dialog').fadeIn();
-	$('#'+meldung).slideDown( 200 );
-
-}
-
-var dialogSchliessen = function(){
-
-	$('#dialog').fadeOut('fast');
-	$('#dialog div').slideUp( 200 );
-
 }
 
 var refreshChordlist = function(){
