@@ -5,14 +5,34 @@ var B = {
 };
 
 //  Lied
+/**
+ * @description Alles betreffend des zu bearbeitenden XML-Dokuments
+ */
+ 
 var Lied = {
 	titelAlt: '',
 	titelNeu: '',
+	
+	/**
+	 * @name Lied-bearbeitet
+	 * @description
+	 * Wurde das Dokument verändert?
+	 * @type boolean
+	 * @default false
+	 * @private
+	 * @see UI.verwerfen
+	 */
 	bearbeitet: false,
 	textModus: false,
 	
 	sichern: function(){
-		alert('in db schreiben');
+		alert('in db schreiben: '+this.titelNeu);
+		location.href = 'index.php';
+	},
+	
+	ersetzen: function(){
+		Lied.sichern();
+		alert('von db löschen: '+this.titelAlt);
 	}
 	
 };
@@ -28,7 +48,7 @@ var UI = {
 		Lied.titelNeu = $('h1').text();
 		
 		if (Lied.titelNeu != Lied.titelAlt && Lied.titelAlt != B.leerTitel){
-			dialog.zeigen('umbenennen', { alt: Lied.titelAlt, neu: Lied.titelNeu });
+			Dialog.zeigen('umbenennen', { alt: Lied.titelAlt, neu: Lied.titelNeu });
 		}
 		else Lied.sichern();
 	},
@@ -50,13 +70,63 @@ var UI = {
 			Parser.machCode();
 			Lied.textModus = true;
 		}
+	},
+	
+	akkordListeLaden: function(){
+		$('#akkordListe').empty(); // Listenelement leeren
+		
+		var akkorde = new Array();
+		
+		$('.chord').each(function() {
+			var dies = $(this).text();
+			if ( $.inArray(dies, akkorde) == -1 )
+				akkorde.push(dies);
+		});
+		
+		// Akkorde in Liste schreiben
+		$(akkorde).each(function(){
+			$('#akkordListe').append('<span class="chord edit">'+this+'</span>');
+		});
+		
+		UI.dragdropBinden();
+	},
+	
+	dragdropBinden: function(){
+		
+		$('.chord').draggable({ 
+			revert: true,
+			//cursorAt: { top: 10, left: 25 },
+			revertDuration: 0,
+			addClasses: false,
+			scope: 'chords',
+			start: function() {
+				$(this).addClass('ziehen');
+				
+			},
+			stop: function(event, ui) { $(this).removeClass('ziehen'); }
+		});
+		
+		$('.drop').droppable({
+			drop: function(event, ui) { 
+				$(this).before(ui.draggable).removeClass('dropHover');
+				if ($(this).hasClass('LL')){
+					$(this).after('<span class="drop LL">&nbsp;</span>');
+					UI.dragdropBinden();
+				}
+				UI.akkordListeLaden();
+				Lied.bearbeitet = true;
+			},
+			over: function(event, ui) { $(this).addClass('dropHover'); },
+			out: function(event, ui) { $(this).removeClass('dropHover'); },
+			scope: 'chords',
+			addClasses: false
+		});
 	}
 };
 
 //  Parser
 var Parser = {
 	machCode: function(){
-	
 		var t;
 		
 		$('#song .chord').prepend('(').append(')');
@@ -92,70 +162,126 @@ var Parser = {
 		
 		$('#song').html(t);
 		
+		/*
 		$('#song p').replaceWith(function(){
 			var t = Parser.machSilben( $(this).html() );
 			return '<p class="'+$(this).attr('class')+'">'+t+'</p>'
 		});
+		*/
+		//NEU
+		Parser.machSilben();
 		
-		refreshChordlist();
+		UI.akkordListeLaden();
 	
 		$('#werkzeuge').fadeIn(500);
 		$('#tipps').fadeOut(500);
 		Lied.bearbeitet = true;
 	},
 	
-	machSilben: function( t ){
-		 var pre = '<span class="drop">';
-		 var preLL = '<span class="drop LL">';
-		 var post = '</span>';
+	
+	machSilben: function() {
+		$('#song p').replaceWith(function(){
 		
-		var lineStart = '';
-		var lineEnd = preLL+'&nbsp;'+post;
-		
-		t = lineStart+pre+t.replace(/(\s)*<br>(\s)*/g, post+lineEnd+'<br>'+lineStart+pre )+post+lineEnd;
-		
-		var i = -1;
-		var t_ = '';
-		var inBrack = false;
-		var inTag = false;
-		
-		while( t[++i] != undefined ){
+			var t = $(this).html();
 			
-			if (t[i] == '>') inBrack = false;
-			if (t[i] == '<') inBrack = true;
+			var pre = '<span class="drop">';
+			var preLL = '<span class="drop LL">';
+			var post = '</span>';
 			
-			if ( t[i] == ' ' && !inBrack && !inTag ){
-				t_ += post+t[i]+pre;
-			} else {
-				t_ += t[i];
+			var lineStart = '';
+			var lineEnd = preLL+'&nbsp;'+post;
+			
+			t = lineStart+pre+t.replace(/(\s)*<br>(\s)*/g, post+lineEnd+'<br>'+lineStart+pre )+post+lineEnd;
+			
+			var i = -1;
+			var t_ = '';
+			var inBrack = false;
+			var inTag = false;
+			
+			// Leerzeichen als Trenner erkennen
+			while( t[++i] != undefined ){
+				
+				if (t[i] == '>') inBrack = false;
+				if (t[i] == '<') inBrack = true;
+				
+				if ( t[i] == ' ' && !inBrack && !inTag ){
+					t_ += post+t[i]+pre;
+				} else {
+					t_ += t[i];
+				}
 			}
-		}
-	
-		t = t_;
-		
-		var hyphenatorSettings = { hyphenchar: post+pre };
-	        
-		Hyphenator.config(hyphenatorSettings);
-		t = Hyphenator.hyphenate(t, 'de');
-		
-		return t;
+			t = t_;
+			
+			var hyphenatorSettings = { hyphenchar: post+pre };
+		        
+			Hyphenator.config(hyphenatorSettings);
+			t = Hyphenator.hyphenate(t, 'de');
+			
+			return '<p class="'+$(this).attr('class')+'">'+t+'</p>';
+		});
 	}
+}; /* Parser Ende */
 
-};
-
+// Document Ready
 $(document).ready(function(){
-	
 	Lied.titelAlt = $('h1').text();
 	
-	$('#song p').replaceWith(function(){
-		var t = Parser.machSilben( $(this).html() );
-		return '<p class="'+$(this).attr('class')+'">'+t+'</p>'
+	Parser.machSilben();
+	
+	UI.akkordListeLaden();
+	
+	// Hilfsfunktion für Handleranbindung
+	var wrapEditor = function(event, target){
+			
+		//Abbrechen, wenn bereits geöffnet
+		if (target.children().is('#editor')) return;
+		//Abbrechen, wenn noch in Seitenleiste
+		if (target.parent().is('#akkordListeLaden')) return;
+	
+		//Neue Eingabemaske erstellen
+		target.wrapInner(function() {
+			return '<input id="editor" value="' + target.text() + '" />';
+		});
+		
+		target.children('input').select();
+	}
+	
+	// Bearbeitbarkeit sämtlicher .edit-Felder
+	$('.edit').live('click', function(event){ wrapEditor(event, $(this)); });
+	// Akkorde erst per Doppelklick
+	$('.chord').die('click');
+	$('.chord').live('dblclick', function(event){ wrapEditor(event, $(this)); });
+	
+	$('.edit').live('focusout', function(event){	
+		// Geöffnete Elemente schliessen und in DOM-Baum zurückschreiben
+		var offen = $("#editor");
+		if (offen.val() == '') offen.val(B.leerText);
+		
+		offen.replaceWith(offen.val());
+		Lied.bearbeitet = true;
+		
+		// Akkord: Liste anpassen
+		if ($(this).hasClass('chord')) UI.akkordListeLaden();	
 	});
 	
-	refreshChordlist();
-	//Bindhandlers inbegriffen
+	// Element per Enter verlassen
+	$('.edit').live('keypress', function(event){
+		if (event.which == 13) $(this).trigger('focusout');
+	});
 	
-});
+	// Dialog-Effekte
+	$('#dialog a').live('mouseenter', function() {
+		var i = $(this).siblings('.dialogInfo');
+		
+		i.data('text', i.html());
+		i.text( $(this).attr('alt') );
+	});
+	
+	$('#dialog a').live('mouseleave', function() {
+		var i = $(this).siblings('.dialogInfo');
+		i.html( i.data('text') );
+	});
+}); /* Document Ready */
 
 //  Dialog
 var Dialog = {
@@ -173,7 +299,6 @@ var Dialog = {
 		$('#dialog div').slideUp( 200 );
 		return false; // "href" bitte nicht aufrufen!
 	}
-	
 };
 
 /*
@@ -191,110 +316,3 @@ var dialogSichern = function( sichern, loeschen ){
 }
 
 */
-var refreshChordlist = function(){
-	$('#akkordListe').empty(); // Listenelement leeren
-	
-	var akkorde = new Array();
-	
-	$('.chord').each(function() {
-		var dies = $(this).text();
-		if ( $.inArray(dies, akkorde) == -1 )
-			akkorde.push(dies);
-	});
-	
-	//akkorde.sort();
-	
-	// Akkorde in Liste schreiben
-	$(akkorde).each(function(){
-		$('#akkordListe').append('<span class="chord edit">'+this+'</span>');
-	});
-	
-	bindHandlers();
-}
-
-
-// Alte Methoden
-var bindHandlers = function(){
-	
-	$('.chord').draggable({ 
-		revert: true,
-		//cursorAt: { top: 10, left: 25 },
-		revertDuration: 0,
-		addClasses: false,
-		scope: 'chords',
-		start: function() {
-			$(this).addClass('ziehen');
-			
-		},
-		stop: function(event, ui) { $(this).removeClass('ziehen'); }
-	});
-	
-	$('.drop').droppable({
-		drop: function(event, ui) { 
-			$(this).before(ui.draggable).removeClass('dropHover');
-			if ($(this).hasClass('LL')){
-				$(this).after('<span class="drop LL">&nbsp;</span>');
-				bindHandlers();
-			}
-			refreshChordlist();
-			bearbeitet = true;
-		},
-		over: function(event, ui) { $(this).addClass('dropHover'); },
-		out: function(event, ui) { $(this).removeClass('dropHover'); },
-		scope: 'chords',
-		addClasses: false
-	});
-	
-	var bindEditor = function(event, target){
-		
-		//Abbrechen, wenn bereits geöffnet
-		if (target.children().is('#editor')) return;
-		
-		//Abbrechen, wenn noch in Seitenleiste
-		if (target.parent().is('#akkordListe')) return;
-		
-		//Neue Eingabemaske erstellen
-		target.wrapInner(function() {
-			return '<input id="editor" value="' + target.text() + '" />';
-		});
-		
-		target.children('input').select();
-	}
-	
-	$('.edit').click(function(event){ bindEditor(event, $(this)); });
-	$('.chord').unbind('click');
-	$('.chord').dblclick(function(event){ bindEditor(event, $(this)); });
-	
-	$('.edit').focusout(function(event){
-		
-		// Geöffnete Elemente schliessen und in DOM-Baum zurückschreiben
-		var offen = $("#editor");
-		if (offen.val() == '') offen.val(leerText);
-		
-		offen.replaceWith(offen.val());
-		bearbeitet = true;
-		
-		// Akkord: Liste anpassen
-		if ($(this).hasClass('chord')) refreshChordlist();
-			
-	});
-	
-	$('.edit').keypress(function(event){
-		
-		if (event.which == 13) $(this).trigger('focusout'); // Element bei Enter verlassen
-	
-	});
-	
-	$('#dialog a').mouseenter( function() {
-		var i = $(this).siblings('.dialogInfo');
-		
-		i.data('text', i.html());
-		i.text( $(this).attr('alt') );
-	});
-	
-	$('#dialog a').mouseleave( function() {
-		var i = $(this).siblings('.dialogInfo');
-
-		i.html( i.data('text') );
-	});
-}
