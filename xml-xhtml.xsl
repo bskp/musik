@@ -26,7 +26,7 @@
 <xsl:template match="key">
  <h3><em>Tonart: </em><span class="edit" id="key"><xsl:value-of select="chord/@name" /></span><span class="edit" id="key_orig"><xsl:value-of select="@original" /></span>
  
- <select name="transpose" id ="transpose" size="1">
+ <select name="transpose" onchange="UI.transponieren()" id ="transpose" size="1">
       <option value="6">- Tritonus</option>
       <option value="7">- Quarte</option>
       <option value="8">- Grosse Terz</option>

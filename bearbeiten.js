@@ -24,6 +24,7 @@ var Lied = {
 	 */
 	bearbeitet: false,
 	textModus: false,
+	versatz: 0,
 	
 	sichern: function(){
 		alert('in db schreiben: '+this.titelNeu);
@@ -63,11 +64,6 @@ var UI = {
 			location.href = 'index.php';
 		}
 	},
-		/*
-		$.post("db.php", { aktion: 'check', datei: titelNeu }, function(data){
-			//alert(data);
-		});
-	*/
 	
 	bearbeiten: function( bKnopf ){
 	
@@ -81,6 +77,12 @@ var UI = {
 			Parser.machCode();
 			Lied.textModus = true;
 		}
+	},
+	
+	transponieren: function(){
+		//$('#transpose').val(0);
+		Musiker.bestimmeNotation();
+		//Musiker.transponiere( $('#transpose').val() );	
 	},
 	
 	akkordListeLaden: function(){
@@ -112,13 +114,18 @@ var UI = {
 			scope: 'chords',
 			start: function() {
 				$(this).addClass('ziehen');
-				
 			},
 			stop: function(event, ui) { $(this).removeClass('ziehen'); }
 		});
 		
 		$('.drop').droppable({
 			drop: function(event, ui) { 
+				if (ui.draggable.is('#plus')){
+					$(this).before('<span class="edit chord"></span>').removeClass('dropHover');
+					UI.dragdropBinden();
+					$(this).prev().trigger('dblclick');
+					return false;
+				}
 				$(this).before(ui.draggable).removeClass('dropHover');
 				if ($(this).hasClass('LL')){
 					$(this).after('<span class="drop LL">&nbsp;</span>');
@@ -132,6 +139,36 @@ var UI = {
 			scope: 'chords',
 			addClasses: false
 		});
+		
+		
+		// Werkzeuge
+		$('#minus').droppable({
+			drop: function(event, ui) {
+				$(this).removeClass('dropHover'); 
+				if (!ui.draggable.is('#plus')) ui.draggable.remove();
+				UI.akkordListeLaden();
+				Lied.bearbeitet = true;
+			},
+			over: function(event, ui) { $(this).addClass('dropHover'); },
+			out: function(event, ui) { $(this).removeClass('dropHover'); },
+			scope: 'chords',
+			addClasses: false
+		});
+		
+		$('#plus').draggable({ 
+			revert: true,
+			revertDuration: 0,
+			addClasses: false,
+			scope: 'chords',
+			start: function() {
+				$(this).addClass('ziehen');
+			},
+			stop: function(event, ui) { $(this).removeClass('ziehen'); }
+		});
+	},
+	
+	plus: function(){
+	
 	}
 };
 
@@ -227,6 +264,92 @@ var Parser = {
 	}
 }; /* Parser Ende */
 
+//  Musiker
+var Musiker = {
+
+	leiter: [
+		['c', 'des', 'd', 'es', 'e', 'f', 'ges', 'g', 'as', 'a', 'b', 'h'],   // DE  -
+		['c', 'cis', 'd', 'dis', 'e', 'f', 'fis', 'g', 'gis', 'a', 'ais', 'h'], // DE  +
+		['c', 'db', 'd', 'eb', 'e', 'f', 'gb', 'g', 'ab', 'a', 'bb', 'b'],      // Int -
+		['c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'a#', 'b'],      // Int +
+	],
+	
+	notation: -1,
+	
+	bestimmeNotation: function(){
+		var punkte = [0, 0, 0, 0];
+		$('#akkordListe .chord').each(function(){
+			if ( $(this).text().match(/^[A-DF-Ha-df-h]es|[AE]s/) ) punkte[0]++;
+			if ( $(this).text().match(/^[A-Ha-h]is/) ) punkte[1]++;
+			if ( $(this).text().match(/^[A-Ha-h]b/) ) punkte[2]++;
+			if ( $(this).text().match(/^[A-Ha-h]#/) ) punkte[3]++;
+		})
+		
+		var max = Math.max(punkte[0], punkte[1], punkte[2], punkte[3]);
+		for (var i = max; i > 0; i--){
+			var t='';
+			for (var j = 0; j < 4; j++){
+				if (punkte[j] >= i) t+='  *  ';
+				else t+='     ';
+			}
+			console.log(t);
+		}
+		console.log('____________________');
+		console.log(' -es '+' -is '+'  b  '+'  #  ');
+	},
+	
+	transponiere: function( zielVersatz ){
+		var versatz = (zielVersatz - Lied.versatz)%12;
+		Lied.versatz = zielVersatz;
+		
+		$('#song .chord').text( function(){
+			var t = $(this).text();
+			var kapital = t.match(/^[A-H]/);
+			t = t.toLowerCase();
+			t = t.replace(/^([a-h](is|es|s|#|b)?)/, function(p2){ //p2 = $2
+				for (var l = 0; l<4; l++){
+					if (this.BistH) l_ = (l+2)%4; // Internationale Interpretation
+					else l_ = l; // Deutsche Interpretation
+					var pos = $.inArray(p2, Musiker.leiter[l_]);
+					if (pos != -1){
+						//transponieren
+						//console.log(p2+' ('+pos+') ->');
+						pos = ((pos*1)+(versatz*1)+12)%12; // Erzwungene Integer-Konversion
+						p2 = Musiker.leiter[l_][pos];
+						break;
+					}
+				}
+				//console.log('             ->'+p2+' ('+pos+')');
+				return p2;
+			});
+			// Grossschreibung wiederherstellen
+			if (kapital) t = t.slice(0,1).toUpperCase() + t.slice(1);
+			return t;
+		});
+		
+		UI.akkordListeLaden();
+	}
+
+}; /* Musiker Ende */
+
+//  Dialog
+var Dialog = {
+
+	zeigen: function( meldung, args ){
+		for (var arg in args)
+    	$('#'+meldung+' em#'+arg).text(args[arg]); // Platzhalter ersetzen
+
+		$('#dialog').fadeIn();
+		$('#'+meldung).slideDown( 200 );
+	},
+	
+	schliessen: function(){
+		$('#dialog').fadeOut('fast');
+		$('#dialog div').slideUp( 200 );
+		return false; // "href" bitte nicht aufrufen!
+	}
+};
+
 // Document Ready
 $(document).ready(function(){
 
@@ -290,21 +413,3 @@ $(document).ready(function(){
 		i.html( i.data('text') );
 	});
 }); /* Document Ready */
-
-//  Dialog
-var Dialog = {
-
-	zeigen: function( meldung, args ){
-		for (var arg in args)
-    	$('#'+meldung+' em#'+arg).text(args[arg]); // Platzhalter ersetzen
-
-		$('#dialog').fadeIn();
-		$('#'+meldung).slideDown( 200 );
-	},
-	
-	schliessen: function(){
-		$('#dialog').fadeOut('fast');
-		$('#dialog div').slideUp( 200 );
-		return false; // "href" bitte nicht aufrufen!
-	}
-};

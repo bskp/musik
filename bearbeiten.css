@@ -84,6 +84,10 @@ body {
 	cursor: pointer;
 }
 
+#minus, #minus img{
+	cursor: default;
+}
+
 #werkzeuge .button{
 	opacity: 0.3;
 	width: 40px;
@@ -361,8 +365,18 @@ p:before{
 	width: 2em;
 }
 
-.chord{
+.chord, #plus, #plus img{
 	cursor: url('img/palm.gif'), pointer;
+}
+	
+.dropHover{
+	background-color: #fff44f;
+	border-radius: 5px;
+}
+
+#werkzeuge #minus.dropHover{
+	opacity: 1;
+	cursor: url('img/trash_16.png'), pointer;
 }
 
 .chord.ziehen{
@@ -370,10 +384,13 @@ p:before{
 	opacity: 0.3;
 	height: 0;
 }
-	
-.dropHover{
-	background-color: #fff44f;
-	border-radius: 5px;
+
+#werkzeuge #plus.ziehen{
+	cursor: url('img/grab.gif'), pointer;
+	opacity: 0.3;	
+}
+
+#werkzeuge #plus{
 }
 
 #bearbeitenKnopf{

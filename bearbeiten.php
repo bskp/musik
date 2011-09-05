@@ -1,8 +1,7 @@
 <?php
 
-//$titel = 'fribourg, mon amour.xml';
-$titel = 'lours.xml';
-
+if (!$_GET) $titel = 'fribourg, mon amour.xml';
+else $titel = $_GET['lied'];
 
 // Load the XML source
 $xml = new DOMDocument;
@@ -36,8 +35,8 @@ $liedHtml = $proc->transformToXML($xml);
 		<a href="#" onclick="UI.bearbeiten( $(this) );" title="Text bearbeiten" class="button" id="editButton" accesskey="e"><img src="img/edit.png" /></a>
 	</div>
 	<div id="werkzeuge">
-		<a href="#" class="button"><img src="img/minus.png" /></a>
-		<a href="#" class="button"><img src="img/plus.png" /></a>
+		<a href="#" id="minus" class="button"><img src="img/minus.png" /></a>
+		<a href="#" onclick="UI.plus();" id="plus" class="button"><img src="img/plus.png" /></a>
 		<div id="akkordListe"></div>
 	</div>
 	<div id="tipps">
