@@ -62,15 +62,12 @@
 </xsl:template>
 
 <xsl:template match="tags">
-	<ul id="tags">
+	<textarea id="tags">
 		<xsl:apply-templates />
-	</ul>
-	<a href="#" onclick="addTag();" id="addTag">+</a>
+	</textarea>
 </xsl:template>
 
-<xsl:template match="tag">
-	<li class="tag"><xsl:value-of select="." /></li>
-</xsl:template>
+<xsl:template match="tag"><xsl:value-of select="." />, </xsl:template>
 
 <xsl:template match="stanza">
 	<p class="stanza">
@@ -90,6 +87,5 @@
 <xsl:template match="br">
 	<br />
 </xsl:template>
-
 
 </xsl:stylesheet>

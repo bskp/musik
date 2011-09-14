@@ -361,6 +361,40 @@ $(document).ready(function(){
 	
 	UI.akkordListeLaden();
 	
+	// Leerräume bei Tags entfernen
+	$('#tags').text( $('#tags').text().replace(/\s/g, '') );
+	$('#tags').text( $('#tags').text().replace(/,/g, ', ') );
+	//Autocompletion für Tags
+	$('#tags').autocomplete({
+		source: [
+			'schnulzig',
+			'bilingue',
+			'einfach',
+			'moll',
+			'englisch',
+			'party',
+			'mundart'
+		],
+		minLength: 0,
+		
+		focus: function() {
+			// prevent value inserted on focus
+			return false;
+			},
+		select: function( event, ui ) {
+			var terms = this.value.split( /,\s*/ );
+			
+			// remove the current input
+			terms.pop();
+			// add the selected item
+			terms.push( ui.item.value );
+			// add placeholder to get the comma-and-space at the end
+			terms.push( "" );
+			this.value = terms.join( ", " );
+			return false;
+		}
+	});
+	
 	// Hilfsfunktion für Handleranbindung
 	var wrapEditor = function(event, target){
 			

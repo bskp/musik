@@ -161,31 +161,37 @@ h3 em{
 	font-style: normal;
 }
 
-ul#tags{
-	padding-left: 0;
-	margin-bottom: 0;
+textarea#tags{
+	font: inherit;
+	border-style: none;
+	margin: 0;
+	padding: 0;
+	width: 50%;
 }
 
-ul#tags li{
-	font-style: italic;
+ul.ui-autocomplete{
+	width: 200px;
+	margin: 0;
+	padding: 2px 0;
+	border-radius: 3px;
+	border: 1px solid silver;
+	background-color: white;
+	border-top-style: none;
+}
+
+li.ui-menu-item{
 	list-style-type: none;
 }
 
-ul#tags li:before{
-	content: '– ';
+li.ui-menu-item a{
+	margin-left: 3px;
+	padding-left: 4px;
+	padding-right: 4px;
+	border-radius: 3px;
 }
 
-#addTag{
-	text-decoration: none;
-	color: black;
-	margin-left: -2px;
-	font-size: 14px;
-	line-height: 16px;
-}
-
-#addTag:hover{
-	cursor: pointer;
-	
+#ui-active-menuitem{
+	background-color: #fff44f;
 }
 
 /* @end */
