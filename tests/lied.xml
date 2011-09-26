@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+	<head>
+		<title>Bearbeite ”fribourg, mon amour.xml”</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link href="bearbeiten.css" rel="stylesheet" type="text/css" />
+		<script src="lib/jquery.js"></script>
+		<script src="lib/jqueryUI.js"></script>
+		<script src="lib/Hyphenator.js"></script>
+		<script src="lib/patterns/de.js" type="text/javascript"></script>
+		<script src="bearbeiten.js"></script>
+	</head>
+	<body>
+	<div id="menu">
+		<a href="#" onclick="UI.sichern();" title="Sichern" class="button" accesskey="s"><img src="img/accept.png" /></a>
+		<a href="#" title="Verwerfen" onclick="UI.verwerfen();" class="button" accesskey="x"><img src="img/cancel.png" /></a>
+		<a href="#" onclick="UI.bearbeiten( $(this) );" title="Text bearbeiten" class="button" id="editButton" accesskey="e"><img src="img/edit.png" /></a>
+	</div>
+	<div id="werkzeuge">
+		<a href="#" id="minus" class="button"><img src="img/minus.png" /></a>
+		<a href="#" onclick="UI.plus();" id="plus" class="button"><img src="img/plus.png" /></a>
+		<div id="akkordListe"></div>
+	</div>
+	<div id="tipps">
+		<p><span>(</span>Akkord<span>)</span></p>
+		<p><span>#</span> Strophe</p>
+		<p><span>B</span> Bridge</p>
+		<p><span>R</span> Refrain</p>
+		<p><span>{</span>Notiz<span>}</span></p>
+	</div>
+	<div id="dialog"><div id="umbenennen">
+	<h3>Liedtitel wurde geändert!</h3>
+	<p class="dialogInfo"><em id="alt">Alter Titel</em> heisst jetzt <em id="neu">neuer Titel</em>. 
+	<br />Was soll weiter geschehen?</p>
+	<a href="index.php" class="button" onclick="Lied.ersetzen();" alt="Benennt das aktuelle Lied um und überschreibt die alte Fassung"><img src="img/accept_16.png" /> ändern</a>
+	<a href="index.php" class="button" onclick="Lied.sichern();" alt="Behält das ursprüngliche Lied und speichert die Änderungen unter dem neuen Titel"><img src="img/plus.png" /> hinzufügen</a>
+	<a href="#" class="button" onclick="Dialog.schliessen();" alt="Schliesst das Fenster und kehrt zum Lied zurück"><img src="img/cancel_16.png" /> Zurück</a>
+</div>
+
+<div id="verwerfen">
+	<h3>Änderungen verwerfen?</h3>
+	<p class="dialogInfo">Arbeit droht verloren zu gehen! Was tun?</p>
+	<a href="index.php" class="button" onclick="Dialog.schliessen(); return true;" alt="Verwirft alle Änderungen"><img src="img/trash_16.png" /> verwerfen</a>
+	<a href="#" class="button" onclick="Dialog.schliessen();" alt="Schliesst das Fenster und kehrt zum Lied zurück"><img src="img/cancel_16.png" /> Zurück</a>
+</div>
+
+<div id="tutor">
+
+
+</div></div>
+	
+	<div id="ausXML"><?xml version="1.0"?>
+
+<div id="info">
+	<h1><span class="edit" id="title">Fribourg, mon amour</span></h1>
+	<h2><span class="edit" id="composer">Gustav</span></h2>
+	
+	<h3><em>Tonart: </em><span class="edit" id="key">cm</span><span class="edit" id="key_orig">0</span><select name="transpose" onchange="UI.transponieren()" id="transpose" size="1"><option value="6">- Tritonus</option><option value="7">- Quarte</option><option value="8">- Grosse Terz</option><option value="9">- Kleine Terz</option><option value="10">- 1 Ganzton</option><option value="11">- 1 Halbton</option><option value="0" selected="selected">Originaltonart</option><option value="1">+ 1 Halbton</option><option value="2">+ 1 Ganzton</option><option value="3">+ Kleine Terz</option><option value="4">+ Grosse Terz</option><option value="5">+ Quarte</option><option value="6">+ Tritonus</option></select></h3>
+	<h3><em>Jahr: </em><span class="edit" id="year">1998</span></h3>
+	<h3><em>Takt: </em><span class="edit" id="beat">8/8</span></h3>
+	
+	<ul id="tags">
+		<li class="tag">Bilingue</li>
+		<li class="tag">Schnulzig</li>
+	</ul><a href="#" onclick="addTag();" id="addTag">+</a>
+	
+</div>
+
+<div id="song">
+	<p class="verse">
+		<span class="edit chord">cm</span>Wie seltsam ver<span class="edit chord">fm6</span>lassen<br/>
+		<span class="edit chord">cm</span>und verweht du <span class="edit chord">Bb</span>aussiehst<span class="edit chord">G</span><br/>
+		<span class="edit chord">cm</span>Wie deine Farben verb<span class="edit chord">fm6</span>lassen<br/>
+		<span class="edit chord">cm</span>wenn man vom Trubel ab<span class="edit chord">Bb</span>biegt<span class="edit chord">G</span><br/>
+		<br/>
+		<span class="edit chord">fm</span>Ach, wie dein Herz zu sch<span class="edit chord">cm</span>lagen anfängt<br/>
+		<span class="edit chord">Es</span>wie der Stein sanft er<span class="edit chord">D</span>bebt zugl<span class="edit chord">G</span>eich<br/>
+		<span class="edit chord">fm</span>Ach, wie die Geschichte in die <span class="edit chord">cm</span>Gassen sich hängt<br/>
+		<span class="edit chord">Es</span>Erst <span class="edit chord">D</span>jetzt bist du r<span class="edit chord">G</span>eich
+	</p>
+	<p class="verse">
+		Wie seltsam deine Häuser träumen<br/>
+		als schwebten sie in and‘rer Zeit<br/>
+		Wären aus Wolken all die Bäume<br/>
+		du flögst wohl in die Vergangenheit<br/>
+		<br/>
+		Ach, hättest du nicht harte Glieder<br/>
+		ich läge dir im weichen Schoss<br/>
+		Ich würd‘ dir singen all die Lieder<br/>
+		Wär‘ dein Ohr nur riesengross
+	</p>
+	<p class="chorus">
+		<span class="edit chord">cm</span>Fribourg, mon a<span class="edit chord">fm</span>mour<br/>
+		<span class="edit chord">Es</span>Fribourg, je t‘aime pour tou<span class="edit chord">G</span>jours<br/>
+		<span class="edit chord">cm</span>Fribourg, mon a<span class="edit chord">fm</span>mour<br/>
+		<span class="edit chord">Es</span>Fribourg, je t‘aime pour tou<span class="edit chord">G</span>jours<br/>
+	</p>
+	<p class="verse">
+		Wie seltsam deine Wasser fliessen<br/>
+		Als wärst du eines Seemanns Hort<br/>
+		Würd‘ sich ein Meer auf dich ergiessen<br/>
+		Du taugtest noch als sicheren Port<br/>
+		<br/>
+		Ach, wär‘ dein Dom nicht längst am klingen<br/>
+		baute ich einen dir aus reinstem Gold<br/>
+		Trüge dein Geist nicht längst schon Schwingen<br/>
+		hätte ich vom Himmel dir welche geholt<br/>
+	</p>
+	
+	<span class="note">Refrain</span>
+	
+</div>
+
+</div>
+	</body>
+</html>
