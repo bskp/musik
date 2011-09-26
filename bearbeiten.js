@@ -414,7 +414,7 @@ $(document).ready(function(){
 	// Bearbeitbarkeit sämtlicher .edit-Felder
 	$('.edit').live('click', function(event){ wrapEditor(event, $(this)); });
 	// Akkorde erst per Doppelklick
-	$('.chord').die('click');
+	$('.chord').die('click');2
 	$('.chord').live('dblclick', function(event){ wrapEditor(event, $(this)); });
 	
 	$('.edit').live('focusout', function(event){	
