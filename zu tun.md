@@ -4,14 +4,15 @@
 
 ## Ideen
 
-* LIVE
 * Autocompletion Tags
 * Transponieren
 * Zurückspeichern
-* Titeländerung -> Neue Songdatei
 
 ## Bugs
 
-* \n
+* \n neu schreiben
 
-## GEMECHT
+## Gemecht
+
+* $.live()
+* Titeländerung -> Neue Songdatei
