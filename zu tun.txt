@@ -1,18 +1,17 @@
-NOCH ZU TUN
------------
+# Noch zu tun
 
 
 
-IDEEN
+## Ideen
 
-- LIVE
-- Autocompletion Tags
-- Transponieren
-- Zurückspeichern
-- Titeländerung -> Neue Songdatei
+* LIVE
+* Autocompletion Tags
+* Transponieren
+* Zurückspeichern
+* Titeländerung -> Neue Songdatei
 
-BUGS
+## Bugs
 
-- \n
+* \n
 
-GEMECHT
+## GEMECHT
