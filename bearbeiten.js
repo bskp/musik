@@ -41,6 +41,10 @@ var Lied = {
 };
 
 //  UI
+/**
+ * @description Reagiert auf Benutzerinteraktionen
+ */
+ 
 var UI = {
 	verwerfen: function(){
 		if (Lied.bearbeitet) Dialog.zeigen('verwerfen');
@@ -168,6 +172,7 @@ var UI = {
 	},
 	
 	plus: function(){
+	
 	
 	}
 };
@@ -337,16 +342,33 @@ var Dialog = {
 
 	zeigen: function( meldung, args ){
 		for (var arg in args)
-    	$('#'+meldung+' em#'+arg).text(args[arg]); // Platzhalter ersetzen
+    		$('#'+meldung+' em#'+arg).text(args[arg]); // Platzhalter ersetzen
 
 		$('#dialog').fadeIn();
-		$('#'+meldung).slideDown( 200 );
+		$('#dialog #'+meldung).slideDown( 200 );
 	},
 	
 	schliessen: function(){
 		$('#dialog').fadeOut('fast');
 		$('#dialog div').slideUp( 200 );
 		return false; // "href" bitte nicht aufrufen!
+	}
+};
+
+//  Tipp
+var Tipp = {
+
+	zeigen: function( meldung, mouseEvent, args ){
+		for (var arg in args)
+    		$('#tipp #'+meldung+' em#'+arg).text(args[arg]); // Platzhalter ersetzen
+    	
+    	$('#tipp').css("left", mouseEvent.pageX);	
+    	$('#tipp').css('top', mouseEvent.pageY - 30);	// Tipp ausrichten
+    	
+    	$('#tipp div').css("display", "none");
+    	$('#tipp #'+meldung).css("display", "inline-block"); // Andere Tipps ausblenden
+    	$('#tipp').css("display", "inline-block"); // Andere Tipps ausblenden
+		$('#tipp').delay('1300').fadeOut('slow');
 	}
 };
 
@@ -414,7 +436,7 @@ $(document).ready(function(){
 	// Bearbeitbarkeit sämtlicher .edit-Felder
 	$('.edit').live('click', function(event){ wrapEditor(event, $(this)); });
 	// Akkorde erst per Doppelklick
-	$('.chord').die('click');2
+	$('.chord').die('click');
 	$('.chord').live('dblclick', function(event){ wrapEditor(event, $(this)); });
 	
 	$('.edit').live('focusout', function(event){	
@@ -433,6 +455,16 @@ $(document).ready(function(){
 	$('.edit').live('keypress', function(event){
 		if (event.which == 13) $(this).trigger('focusout');
 	});
+	
+	// Tipps geben!
+	if ( true ){
+		$('#plus').live('click', event, function() {
+			Tipp.zeigen('plusklick', event);
+		});
+		$('#minus').live('click', event, function() {
+			Tipp.zeigen('minusklick', event);
+		});
+	}
 	
 	// Dialog-Effekte
 	$('#dialog a').live('mouseenter', function() {

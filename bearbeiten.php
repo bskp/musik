@@ -47,6 +47,7 @@ $liedHtml = $proc->transformToXML($xml);
 		<p><span>{</span>Notiz<span>}</span></p>
 	</div>
 	<div id="dialog"><?php include('dialoge.php'); ?></div>
+	<div id="tipp"><?php include('tipps.php'); ?></div>
 	
 	<div id="ausXML"><?=$liedHtml?></div>
 	</body>
