@@ -192,6 +192,8 @@ var Parser = {
 		t = $('#song').text();
 		
 		t = t.replace(/\t/g, '');
+		t = t.replace(/([#RB])(\n){2,}/g, '$1\n');
+		t = t.replace(/(\n){3,}([#RB])/g, '\n\n$2');
 		t = t.replace(/ \n/g, '\n'); // ! Achtung, nbsp!
 		
 		$('#song p').parent().wrapInner(function() {
@@ -199,7 +201,7 @@ var Parser = {
 		});
 		
 		$('#werkzeuge').fadeOut(500);
-		$('#tipps').fadeIn(500);
+		$('#markup').fadeIn(500);
 	},
 	
 	machHTML: function(){
@@ -209,7 +211,7 @@ var Parser = {
 		t = t.replace(/R\n((.|\n)*?)(\n\n(?=([#RB]\n))|(?=($|<)))/g, '<p class="chorus">$1</p>');
 		t = t.replace(/B\n((.|\n)*?)(\n\n(?=([#RB]\n))|(?=($|<)))/g, '<p class="bridge">$1</p>');
 		
-		t = t.replace(/{((.|\s)*?)}/g, '<span class="note">$1</span>');
+		t = t.replace(/{([. ]*)}/g, '<span class="note">$1</span>');
 		t = t.replace(/\((.*?)\)/g, '<span class="edit chord">$1</span>');
 		t = t.replace(/\n/g, '<br />\n');
 		
@@ -220,7 +222,7 @@ var Parser = {
 		UI.akkordListeLaden();
 	
 		$('#werkzeuge').fadeIn(500);
-		$('#tipps').fadeOut(500);
+		$('#markup').fadeOut(500);
 		
 		Lied.bearbeitet = true;
 	},

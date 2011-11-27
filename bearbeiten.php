@@ -39,7 +39,7 @@ $liedHtml = $proc->transformToXML($xml);
 		<a href="#" onclick="UI.plus();" id="plus" class="button"><img src="img/plus.png" /></a>
 		<div id="akkordListe"></div>
 	</div>
-	<div id="tipps">
+	<div id="markup">
 		<p><span>(</span>Akkord<span>)</span></p>
 		<p><span>#</span> Strophe</p>
 		<p><span>B</span> Bridge</p>

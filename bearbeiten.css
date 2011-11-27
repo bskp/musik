@@ -26,7 +26,7 @@ body {
 
 
 
-#werkzeuge, #menu, #tipps{
+#werkzeuge, #menu, #markup{
 	position: fixed;
 	display: block;
 	width: 40px;
@@ -40,19 +40,19 @@ body {
 	bottom: 0;
 }
 
-#tipps{
+#markup{
 	bottom: 0;
 	width: 85px;
 	display: none;
 }
 
-#tipps p{
+#markup p{
 	color: gray;
 	font-weight: normal;
 	font-style: normal;
 }
 
-#tipps p span{
+#markup p span{
 	color: black;
 }
 
