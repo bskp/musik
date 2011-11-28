@@ -232,6 +232,8 @@ var Parser = {
 	
 	
 	machSilben: function() {
+		
+		//todo: akkorde nicht in .drop reinnehmen!
 		$('#song p').replaceWith(function(){
 		
 			var t = $(this).html();

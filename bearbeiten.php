@@ -34,6 +34,24 @@ $liedHtml = $proc->transformToXML($xml);
 		<a href="#" title="Verwerfen" onclick="UI.verwerfen();" class="button" accesskey="x"><img src="img/cancel.png" /></a>
 		<a href="#" onclick="UI.bearbeiten( $(this) );" title="Text bearbeiten" class="button" id="editButton" accesskey="e"><img src="img/edit.png" /></a>
 	</div>
+	<div id="darstellung">
+		<a href="#" onclick"UI.scrollen();" title"Autoscroll" class="button" accesskey="a">Autoscroll</a>
+		<select name="transpose" onchange="UI.transponieren()" id="transpose" size="1">
+		     <option value="6">- Tritonus</option>
+		     <option value="7">- Quarte</option>
+		     <option value="8">- Grosse Terz</option>
+		     <option value="9">- Kleine Terz</option>
+		     <option value="10">- 1 Ganzton</option>
+		     <option value="11">- 1 Halbton</option>
+		     <option value="0" selected="selected">Originaltonart</option>
+		     <option value="1">+ 1 Halbton</option>
+		     <option value="2">+ 1 Ganzton</option>
+		     <option value="3">+ Kleine Terz</option>
+		     <option value="4">+ Grosse Terz</option>
+		     <option value="5">+ Quarte</option>
+		     <option value="6">+ Tritonus</option>
+		   </select></h3>
+	</div>
 	<div id="werkzeuge">
 		<a href="#" id="minus" class="button"><img src="img/minus.png" /></a>
 		<a href="#" onclick="UI.plus();" id="plus" class="button"><img src="img/plus.png" /></a>

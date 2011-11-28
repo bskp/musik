@@ -24,7 +24,9 @@ body {
 	margin-left: auto;
 }
 
-
+#darstellung{
+	display: none;
+}
 
 #werkzeuge, #menu, #markup{
 	position: fixed;
@@ -156,6 +158,8 @@ h3{
 h3 em{
 	font-weight: normal;
 	font-style: normal;
+	width: 4em;
+	display: inline-block;
 }
 
 textarea#tags{
@@ -253,8 +257,9 @@ p:before{
 
 #song .drop{
 	display: inline-block;
-	margin-top: -12px;
-	padding-top: 12px;
+	line-height: 10px;
+	padding-top: 14px;
+	margin-top: -14px;
 }
 
 .drop.LL{
@@ -361,6 +366,16 @@ p:before{
 .edit:hover{
 	background-color: #fff44f;
 	border-radius: 5px;
+}
+
+select{
+	border-style: none;
+	font-family: inherit;
+	font-weight: inherit;
+	text-transform: inherit;
+	font-family: inherit;
+	font-size: inherit;
+	font-style: inherit;	
 }
 
 #song textarea{
