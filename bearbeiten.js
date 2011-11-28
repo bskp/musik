@@ -79,6 +79,8 @@ var UI = {
 		else{
 			bKnopf.addClass('active');
 			Parser.machCode();
+			// Höhe der Textbox an Inhalt anpassen
+			$('#song textarea').css( "height", $('#song textarea')[0].scrollHeight );
 			Lied.textModus = true;
 		}
 	},
@@ -191,10 +193,10 @@ var Parser = {
 		
 		t = $('#song').text();
 		
-		t = t.replace(/\t/g, '');
-		t = t.replace(/([#RB])(\n){2,}/g, '$1\n');
-		t = t.replace(/(\n){3,}([#RB])/g, '\n\n$2');
-		t = t.replace(/ \n/g, '\n'); // ! Achtung, nbsp!
+		t = t.replace(/\t/g, ''); // tab löschen
+		t = t.replace(/ /g, ''); //nbsp löschen
+		t = t.replace(/([#RB}])(\n){2,}/g, '$1\n');
+		t = t.replace(/(\n){3,}([#RB{])/g, '\n\n$2');
 		
 		$('#song p').parent().wrapInner(function() {
 			return '<textarea>' + t + '</textarea>';
@@ -207,11 +209,12 @@ var Parser = {
 	machHTML: function(){
 		var t = $('#song textarea').val();
 		
+		t = t.replace(/{(.*)}/g, '<span class="note">$1</span>');
+		
 		t = t.replace(/#\n((.|\n)*?)(\n\n(?=([#RB]\n))|(?=($|<)))/g, '<p class="verse">$1</p>');
 		t = t.replace(/R\n((.|\n)*?)(\n\n(?=([#RB]\n))|(?=($|<)))/g, '<p class="chorus">$1</p>');
 		t = t.replace(/B\n((.|\n)*?)(\n\n(?=([#RB]\n))|(?=($|<)))/g, '<p class="bridge">$1</p>');
 		
-		t = t.replace(/{([. ]*)}/g, '<span class="note">$1</span>');
 		t = t.replace(/\((.*?)\)/g, '<span class="edit chord">$1</span>');
 		t = t.replace(/\n/g, '<br />\n');
 		
