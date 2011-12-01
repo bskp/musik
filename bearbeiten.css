@@ -338,17 +338,30 @@ p:before{
 
 #tipp{
 	display: none;
+	position: absolute;
+	z-index: 4;
+}
+
+#tipp div{
 	padding-left: 0.5em;
 	padding-right: 0.5em;
-	position: absolute;
 	padding-top: 0.3em;
 	border-radius: 5px;
-	border-bottom: 1px solid black;
+	border-bottom-left-radius: 0;
 	background-color: #e4e4e4;
 	top: 0;
 	left: 0;
-	z-index: 4;
 	font-size: 14px;
+}
+
+#tipp span#eck{
+	display: block;
+	border: 10px outset #e4e4e4;
+	border-bottom-color: rgba(255, 255, 255, 0);
+	border-right-style: none;
+	border-top-style: none;
+	height: 0;
+	z-index: 6;
 }
 
 #tipp p{

@@ -126,12 +126,14 @@ var UI = {
 		
 		$('.drop').droppable({
 			drop: function(event, ui) { 
+				// Neuer Akkord?
 				if (ui.draggable.is('#plus')){
 					$(this).before('<span class="edit chord"></span>').removeClass('dropHover');
 					UI.dragdropBinden();
 					$(this).prev().trigger('dblclick');
 					return false;
 				}
+				// Letzer in Zeile?
 				$(this).before(ui.draggable).removeClass('dropHover');
 				if ($(this).hasClass('LL')){
 					$(this).after('<span class="drop LL">&nbsp;</span>');
@@ -221,6 +223,10 @@ var Parser = {
 		$('#song').html(t);
 		
 		Parser.machSilben();
+		
+		// Chords in span.drop vorhin ziehen
+		$('#song .chord').
+		$(this).before('<span class="edit chord"></span>').removeClass('dropHover');
 		
 		UI.akkordListeLaden();
 	
@@ -370,7 +376,7 @@ var Tipp = {
     		$('#tipp #'+meldung+' em#'+arg).text(args[arg]); // Platzhalter ersetzen
     	
     	$('#tipp').css("left", mouseEvent.pageX);	
-    	$('#tipp').css('top', mouseEvent.pageY - 30);	// Tipp ausrichten
+    	$('#tipp').css('top', mouseEvent.pageY - 50);	// Tipp ausrichten
     	
     	$('#tipp div').css("display", "none");
     	$('#tipp #'+meldung).css("display", "inline-block"); // Andere Tipps ausblenden
