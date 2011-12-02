@@ -15,6 +15,7 @@
 
 ## Gemecht
 
+* Akkorde vor .drop ziehen
 * $.live()
 * Titeländerung -> Neue Songdatei
 * \n neu schreiben

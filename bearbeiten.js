@@ -224,10 +224,6 @@ var Parser = {
 		
 		Parser.machSilben();
 		
-		// Chords in span.drop vorhin ziehen
-		$('#song .chord').
-		$(this).before('<span class="edit chord"></span>').removeClass('dropHover');
-		
 		UI.akkordListeLaden();
 	
 		$('#werkzeuge').fadeIn(500);
@@ -279,6 +275,12 @@ var Parser = {
 			
 			return '<p class="'+$(this).attr('class')+'">'+t+'</p>';
 		});
+		
+		// Chords in span.drop vorhin ziehen
+		$('#song .chord').each( function( index ) {
+		    $(this).insertBefore( $(this).parent() );
+		});
+		
 	}
 }; /* Parser Ende */
 
