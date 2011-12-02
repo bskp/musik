@@ -32,6 +32,8 @@ var Lied = {
 		$.post("db.php", { Aktion: 'sichern', datei: this.titelNeu, html: $('#ausXML').html() }, function(data) {
 		   alert(data);
 		 });
+		 
+		Lied.bearbeiten = false;
 	},
 	
 	ersetzen: function(){
@@ -383,7 +385,7 @@ var Tipp = {
     	$('#tipp div').css("display", "none");
     	$('#tipp #'+meldung).css("display", "inline-block"); // Andere Tipps ausblenden
     	$('#tipp').css("display", "inline-block"); // Andere Tipps ausblenden
-		$('#tipp').delay('1300').fadeOut('slow');
+		$('#tipp').delay('2000').fadeOut('slow');
 	}
 };
 
@@ -475,9 +477,15 @@ $(document).ready(function(){
 	if ( true ){
 		$('#plus').live('click', event, function() {
 			Tipp.zeigen('plusklick', event);
+			return false;
 		});
 		$('#minus').live('click', event, function() {
 			Tipp.zeigen('minusklick', event);
+			return false;
+		});
+		$('.drop').live('dblclick', event, function() {
+			Tipp.zeigen('textdblklick', event);
+			return false;
 		});
 	}
 	
@@ -493,4 +501,10 @@ $(document).ready(function(){
 		var i = $(this).siblings('.dialogInfo');
 		i.html( i.data('text') );
 	});
+	
+	// Vor verlassen nachfragen
+	$(window).bind('beforeunload', function(){
+		if (Lied.bearbeitet) return '"'+Lied.titelAlt+'" wurde verändert. Fenster wirklich schliessen?';
+	});
+	
 }); /* Document Ready */

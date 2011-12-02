@@ -354,6 +354,22 @@ p:before{
 	font-size: 14px;
 }
 
+#tipp div img{
+	width: 16px;
+	height: 16px;
+	position: relative;
+	top: 2px;
+}
+
+#tipp div strong{
+	font-style: normal;
+	font-weight: bold;
+	font-size: 11px;
+	text-transform: uppercase;
+	letter-spacing: -1px;
+	word-spacing: 4px;
+}
+
 #tipp span#eck{
 	display: block;
 	border: 10px outset #e4e4e4;

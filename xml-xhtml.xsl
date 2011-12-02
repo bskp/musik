@@ -32,7 +32,7 @@
 </xsl:template>
 
 <xsl:template match="capo">
-	<h3><em>Kapodaster: </em><span class="edit" id="capo"><xsl:value-of select="." /></span>. Bund</h3>
+	<h3><em>Kapo: </em><span class="edit" id="capo"><xsl:value-of select="." /></span>. Bund</h3>
 </xsl:template>
 
 <xsl:template match="beat">

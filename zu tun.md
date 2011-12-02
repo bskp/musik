@@ -8,10 +8,13 @@
 * Transponieren
 * Zurückspeichern
 * Tipps bedingt anzeigen
+* Revert-Animation einfügen
+* Akkordkollisionen verhindern
 
 ## Bugs
 
 * drop.LL mechen
+* nervt mit Fragen beim Speichern-und-Verlassen
 
 ## Gemecht
 
