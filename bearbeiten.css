@@ -361,6 +361,11 @@ p:before{
 	top: 2px;
 }
 
+#tipp div em{
+	font-weight: inherit;
+	font-style: inherit;
+}
+
 #tipp div strong{
 	font-style: normal;
 	font-weight: bold;

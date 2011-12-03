@@ -1,7 +1,12 @@
-//  Allgemeine Einstellungen 
+//  Texte
+/**
+ * @description Übersetzungen etc.
+ */
 var B = {
-	leerText: 'Bitte ausfüllen',
-	leerTitel: 'Titel bitte angeben!'
+	leerTitel: 'Titel bitte angeben!',
+	title: 'Titel',
+	chord: 'Akkord',
+	composer: 'Komponist',
 };
 
 //  Lied
@@ -459,13 +464,20 @@ $(document).ready(function(){
 	$('.edit').live('focusout', function(event){	
 		// Geöffnete Elemente schliessen und in DOM-Baum zurückschreiben
 		var offen = $("#editor");
-		if (offen.val() == '') offen.val(B.leerText);
 		
-		offen.replaceWith(offen.val());
-		Lied.bearbeitet = true;
-		
-		// Akkord: Liste anpassen
-		if ($(this).hasClass('chord')) UI.akkordListeLaden();	
+		if (offen.val() == ''){
+			// Feldtyp bestimmen
+			var typ = offen.parent().attr('id');
+			if ( typ == '' ) typ = 'chord';
+			Tipp.zeigen('leertext', { pageX: offen.offset().left, pageY: offen.offset().top+10 }, { feld: B[typ] } );
+			offen.focus();
+		}
+		else {
+			offen.replaceWith(offen.val());
+			Lied.bearbeitet = true;
+			// Akkord: Liste anpassen
+			if ($(this).hasClass('chord')) UI.akkordListeLaden();	
+		}
 	});
 	
 	// Element per Enter verlassen
@@ -483,8 +495,8 @@ $(document).ready(function(){
 			Tipp.zeigen('minusklick', event);
 			return false;
 		});
-		$('.drop').live('dblclick', event, function() {
-			Tipp.zeigen('textdblklick', event);
+		$('.drop').live('click', event, function() {
+			Tipp.zeigen('textklick', event);
 			return false;
 		});
 	}
@@ -503,8 +515,8 @@ $(document).ready(function(){
 	});
 	
 	// Vor verlassen nachfragen
-	$(window).bind('beforeunload', function(){
+	/*$(window).bind('beforeunload', function(){
 		if (Lied.bearbeitet) return '"'+Lied.titelAlt+'" wurde verändert. Fenster wirklich schliessen?';
-	});
+	});*/
 	
 }); /* Document Ready */
