@@ -254,7 +254,7 @@ var Parser = {
 			var lineStart = '';
 			var lineEnd = preLL+'&nbsp;'+post;
 			
-			t = lineStart+pre+t.replace(/(\s)*<br>(\s)*/g, post+lineEnd+'<br>'+lineStart+pre )+post+lineEnd;
+			t = lineStart+pre+t.replace(/(\s)*<br( \/)?>(\s)*/g, post+lineEnd+'<br />'+lineStart+pre )+post+lineEnd;
 			
 			var i = -1;
 			var t_ = '';
@@ -466,7 +466,7 @@ $(document).ready(function(){
 		var offen = $("#editor");
 		
 		if (offen.val() == ''){
-			// Feldtyp bestimmen
+			// Feldtyp bestimmen, Tipp anzeigen. Zurückschreiben abbrechen.
 			var typ = offen.parent().attr('id');
 			if ( typ == '' ) typ = 'chord';
 			Tipp.zeigen('leertext', { pageX: offen.offset().left, pageY: offen.offset().top+10 }, { feld: B[typ] } );
@@ -480,10 +480,25 @@ $(document).ready(function(){
 		}
 	});
 	
-	// Element per Enter verlassen
-	$('.edit').live('keypress', function(event){
-		if (event.which == 13) $(this).trigger('focusout');
+	// Auf Tastatureingaben im Element reagieren
+	$('.edit,textarea').live('keydown', function(event){
+		// Element per Enter verlassen
+		if (event.keyCode == 13) $(this).trigger('focusout');
+		
+		// Per Tab aufs nächste bearbeitbare Feld wechseln
+		if (event.keyCode == 9) {
+			var fields = $(this).parents('body').find('.edit,textarea');
+			var index = fields.index( this );
+			if ( index > -1 && ( index + 1 ) < fields.length ) {
+				fields.eq( index + 1 ).trigger('click').focus();
+				$.scrollTo( fields.eq( index + 1),
+							{duration: 200, offset: {left: 0, top: -100}} );
+			}
+			event.preventDefault();
+			return false;
+		}
 	});
+	
 	
 	// Tipps geben!
 	if ( true ){
