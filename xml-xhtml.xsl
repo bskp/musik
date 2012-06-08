@@ -20,23 +20,23 @@
 </xsl:template>
 
 <xsl:template match="year">
-	<h3><em>Jahr: </em><span class="edit" id="year"><xsl:value-of select="." /></span></h3>
+	<h3 id="hyear"><em>Jahr: </em><span class="edit" id="year"><xsl:value-of select="." /></span></h3>
 </xsl:template>
 
 <xsl:template match="key">
- <h3><em>Tonart: </em><span class="edit" id="key"><xsl:value-of select="chord/@name" /></span><span class="edit" id="key_orig"><xsl:value-of select="@original" /></span></h3>
+ <h3 id="hkey"><em>Tonart: </em><span class="edit" id="key"><xsl:value-of select="chord/@name" /></span><span class="edit" id="key_orig"><xsl:value-of select="@original" /></span></h3>
 </xsl:template>
 
 <xsl:template match="genre">
-	<h3><em>Stil:</em><span class="edit" id="genre"><xsl:value-of select="." /></span></h3>
+	<h3 id="hgenre"><em>Stil:</em><span class="edit" id="genre"><xsl:value-of select="." /></span></h3>
 </xsl:template>
 
 <xsl:template match="capo">
-	<h3><em>Kapo: </em><span class="edit" id="capo"><xsl:value-of select="." /></span>. Bund</h3>
+	<h3 id="hcapo"><em>Kapo: </em><span class="edit" id="capo"><xsl:value-of select="." /></span>. Bund</h3>
 </xsl:template>
 
 <xsl:template match="beat">
-	<h3><em>Takt: </em><span class="edit" id="beat"><xsl:value-of select="." /></span></h3>
+	<h3 id="hbeat"><em>Takt: </em><span class="edit" id="beat"><xsl:value-of select="." /></span></h3>
 </xsl:template>
 
 <xsl:template match="song">

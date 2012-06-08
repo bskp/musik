@@ -34,7 +34,7 @@ var Lied = {
 	sichern: function(){
 		alert('in db schreiben: '+this.titelNeu);
 		
-		$.post("db.php", { Aktion: 'sichern', datei: this.titelNeu, html: $('#ausXML').html() }, function(data) {
+		$.post("db.php", { aktion: 'sichern', datei: this.titelNeu, html: $('#ausXML').html() }, function(data) {
 		   alert(data);
 		 });
 		 
