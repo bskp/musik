@@ -312,17 +312,32 @@ var Musiker = {
 			if ( $(this).text().match(/^[A-Ha-h]#/) ) punkte[3]++;
 		})
 		
+		var maxi = -1;
 		var max = Math.max(punkte[0], punkte[1], punkte[2], punkte[3]);
 		for (var i = max; i > 0; i--){
 			var t='';
 			for (var j = 0; j < 4; j++){
-				if (punkte[j] >= i) t+='  *  ';
+				if (punkte[j] >= i){
+				    t+='  *  ';
+				    maxi = j;
+				}
 				else t+='     ';
 			}
 			console.log(t);
 		}
+		
 		console.log('____________________');
 		console.log(' -es '+' -is '+'  b  '+'  #  ');
+		
+		var beschreibung = [
+			'Deutsche Notation, B-Tonart',
+			'Deutsche Notation, Kreuz-Tonart',
+			'Intern. Notation, B-Tonart',
+        	'Intern. Notation, Kreuz-Tonart',
+		];
+		
+		console.log (beschreibung[maxi]);
+		return maxi;
 	},
 	
 	transponiere: function( zielVersatz ){
@@ -473,10 +488,16 @@ $(document).ready(function(){
 			offen.focus();
 		}
 		else {
-			offen.replaceWith(offen.val());
+			if ($(this).hasClass('chord')){
+			    if ($(this).parent('#akkordListe').size()) // falls Akkord im Menu links
+			        $('#song .chord').filter(function (index) {
+			          return $(this).text() == offen.text()
+			        })
+			        .text(offen.val()); // ersetze alle Selben im Lied
+			    UI.akkordListeLaden(); // Akkord: Liste anpassen
+			}
+			offen.replaceWith(offen.val()); // Wert zurückschreiben
 			Lied.bearbeitet = true;
-			// Akkord: Liste anpassen
-			if ($(this).hasClass('chord')) UI.akkordListeLaden();	
 		}
 	});
 	
@@ -512,6 +533,10 @@ $(document).ready(function(){
 		});
 		$('.drop').live('click', event, function() {
 			Tipp.zeigen('textklick', event);
+			return false;
+		});
+		$('#akkordListe .chord').live('click', event, function() {
+			Tipp.zeigen('listeklick', event);
 			return false;
 		});
 	}

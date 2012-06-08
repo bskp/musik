@@ -10,6 +10,10 @@
 	<p>Excüsé: Den Text kannst du nur im <img src="img/edit.png" /> <strong>Bearbeitungs-Modus</strong> ändern!</p>
 </div>
 
+<div id="listeklick">
+	<p>Hiermit veränderst du alle gleichnamigen Akkorde auf einmal!</p>
+</div>
+
 <div id="leertext">
 	<p><strong><em id="feld">Feld</em></strong> bitte ausfüllen!</p>
 </div>
