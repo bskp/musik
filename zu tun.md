@@ -6,7 +6,6 @@
 * Box mit Darstellungs-Einstellungen
 * Autocompletion Tags
 * Transponieren
-* Zurückspeichern
 * Tipps bedingt anzeigen
 * Revert-Animation einfügen
 * Akkordkollisionen verhindern
@@ -20,5 +19,6 @@
 
 * Akkorde vor .drop ziehen
 * $.live()
-* Titeländerung -> Neue Songdatei
+* Titeländerung -> Neue Songdat
+* Zurückspeicherei
 * \n neu schreiben

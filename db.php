@@ -1,10 +1,10 @@
 <?php
+print_r($_POST);
 
 if ($_POST['aktion'] == 'sichern'){
     // Load the XML source
     $xhtml = new DOMDocument;
     //$xhtml->loadXML('<div id="songsheet">'+$_POST['html']+'</div>');
-    
     
     $source = $_POST['html'];
     // tweak xml-conformity
@@ -23,16 +23,16 @@ if ($_POST['aktion'] == 'sichern'){
     $liedXML = $proc->transformToXML($xhtml);
     
     
-    $xmlFile = "sammlung/test.xml";
-    $handle = fopen($xmlFile, 'w') or die("No Write Access");
-    $stringData = "Floppy Jalopy\n";
-    fwrite($handle, $stringData);
+    $filename = preg_replace("/\./", "_", $_POST['datei']);
+    $filename = strtolower($filename);
     
+    $xmlFile = "sammlung/".$filename.".xml";
+    echo $xmlFile;
+    $handle = fopen($xmlFile, 'w') or die("No Write Access");
+    fwrite($handle, $liedXML);
+    
+    fclose($handle);
     //echo $liedXML;
 }
-
-
-
-
 
 ?>

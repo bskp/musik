@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE songsheet SYSTEM "http://people.ee.ethz.ch/~maroggo/musik/schrumm.dtd">
+<?xml-stylesheet href="http://people.ee.ethz.ch/~maroggo/musik/schrumm.css"?><songsheet>
+
+<info>
+	<title>Lord Anthony</title>
+	<composer>Belle &amp; Sebastian</composer>
+	
+	<key original="0"><chord name="cm"/></key>
+	<year>Jahr: 1998</year>
+	<beat>Takt: 8/8</beat>
+	
+	<tags><tag>Bilingue</tag> <tag>Schnulzig</tag> <tag/></tags>
+	
+</info>
+
+<song>
+	<stanza type="verse"><chord name="cm"/>
+		Wie seltsam <chord name="fm6"/>verlassen <br/><chord name="cm"/>und verweht du <chord name="Bb"/>aus<chord name="G"/>siehst <br/><chord name="cm"/>Wie deine Farben <chord name="fm6"/>verblassen <br/><chord name="cm"/>wenn man vom Trubel <chord name="Bb"/><chord name="G"/>abbiegt <br/> <br/><chord name="fm"/>Ach, wie dein Herz zu <chord name="cm"/>schlagen anfängt <br/><chord name="Es"/>wie der Stein sanft <chord name="D"/>erbebt <chord name="G"/>zugleich <br/><chord name="fm"/>Ach, wie die Geschichte in die <chord name="cm"/>Gassen sich hängt <br/><chord name="Es"/>Erst <chord name="D"/>jetzt bist du <chord name="G"/>reich
+	 </stanza>
+	<stanza type="verse">
+		Wie seltsam deine Häuser träumen <br/>als schwebten sie in and‘rer Zeit <br/>Wären aus Wolken all die Bäume <br/>du flögst wohl in die Vergangenheit <br/> <br/>Ach, hättest du nicht harte Glieder <br/>ich läge dir im weichen Schoss <br/>Ich würd‘ dir singen all die Lieder <br/>Wär‘ dein Ohr nur riesengross
+	 </stanza>
+	<stanza type="chorus"><chord name="cm"/>
+		Fribourg, mon <chord name="fm"/>amour <br/><chord name="Es"/>Fribourg, je t‘aime pour <chord name="G"/>toujours <br/><chord name="cm"/>Fribourg, mon <chord name="fm"/>amour <br/><chord name="Es"/>Fribourg, je t‘aime pour <chord name="G"/>toujours <br/> </stanza>
+	<stanza type="verse">
+		Wie seltsam deine Wasser fliessen <br/>Als wärst du eines Seemanns Hort <br/>Würd‘ sich ein Meer auf dich ergiessen <br/>Du taugtest noch als sicheren Port <br/> <br/>Ach, wär‘ dein Dom nicht längst am klingen <br/>baute ich einen dir aus reinstem Gold <br/>Trüge dein Geist nicht längst schon Schwingen <br/>hätte ich vom Himmel dir welche geholt <br/> </stanza>
+	
+	<note>Refrain</note>
+	
+</song>
+
+</songsheet>

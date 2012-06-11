@@ -1,6 +1,11 @@
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:str="http://exslt.org/common">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+<xsl:output method="xml" version="1.0" encoding="UTF-8" doctype-system="http://people.ee.ethz.ch/~maroggo/musik/schrumm.dtd"/>
 
 <xsl:template match="/">
+
+<xsl:processing-instruction name="xml-stylesheet">href="http://people.ee.ethz.ch/~maroggo/musik/schrumm.css"</xsl:processing-instruction>
+
 <songsheet>
 	<xsl:apply-templates />
 </songsheet>
@@ -28,19 +33,19 @@
 </xsl:template>
 
 <xsl:template match="h3[@id='hyear']">
-  <year><xsl:value-of select="." /></year>
+  <year><xsl:value-of select="span" /></year>
 </xsl:template>
 
 <xsl:template match="h3[@id='hbeat']">
-  <beat><xsl:value-of select="." /></beat>
+  <beat><xsl:value-of select="span" /></beat>
 </xsl:template>
 
 <xsl:template match="h3[@id='hcapo']">
-  <capo><xsl:value-of select="." /></capo>
+  <capo><xsl:value-of select="span" /></capo>
 </xsl:template>
 
 <xsl:template match="h3[@id='hgenre']">
-  <genre><xsl:value-of select="." /></genre>
+  <genre><xsl:value-of select="span" /></genre>
 </xsl:template>
 
 <xsl:template match="div[@id='tags']">

@@ -17,40 +17,18 @@ while ($dateiname = readdir($fh))
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
 	<head>
-	<style type="text/css">
-
-	a {
-		text-transform: uppercase;
-		font-weight: bold;
-		color: black;
-		font-style: italic;
-		font-size: 40px;
-		font-family: "Bauer Bodoni", Bodoni, Georgia, "Times New Roman", Times, serif;
-	}
-
-	a:hover {
-		font-style: normal;
-		font-weight: bold;
-	}
-
-	body {
-		padding-bottom: 2em;
-		padding-top: 2em;
-		margin-right: auto;
-		margin-left: auto;
-		width: 800px;
-	}
-
-	</style>
-		<title>Faisez votre choix</title>
+		<title>Akkordbüechli</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link href="akkordbuechli.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body>
-	
-	<a href="bearbeiten.php">+bearbeiten ”proof of concept”</a></a><br />
+	<h1>Akkordbüechli</h1>
+	<ul>
 		<?
 		foreach ($liste as $item)
-			echo '<a href="sammlung/'.$item.'">'.$item.'</a><br />';
+			echo '<li><a href="bearbeiten.php?lied='.$item.'"><img src="img/edit_16.png" /></a><a href="sammlung/'.$item.'">'.$item.'</a></li>';
+			
 		?>
+	</ul>
 	</body>
 </html>
