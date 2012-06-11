@@ -43,14 +43,19 @@
   <genre><xsl:value-of select="." /></genre>
 </xsl:template>
 
-<xsl:template match="textarea[@id='tags']">
+<xsl:template match="div[@id='tags']">
 	<tags>
 	<!--
   <xsl:variable name="tagsstring"><xsl:value-of select="." /></xsl:variable>
   <xsl:for-each select="str:tokenize($tagsstring,',\s')">
 		<tag><xsl:value-of select="." /></tag>
   </xsl:for-each> -->
+      <xsl:apply-templates />
   </tags>
+</xsl:template>
+
+<xsl:template match="div[@id='tags']/span">
+ <tag><xsl:value-of select="." /></tag>
 </xsl:template>
 
 <xsl:template match="div[@id='song']">

@@ -34,6 +34,10 @@ var Lied = {
 	sichern: function(){
 		alert('in db schreiben: '+this.titelNeu);
 		
+		$('textarea#tags').replaceWith( '<div id="tags"><span>'+$('textarea#tags').text().split(', ').join('</span> <span>')+'</span></div>' );
+		
+		$('#ausXML').wrapInner('<div />');
+		
 		$.post("db.php", { aktion: 'sichern', datei: this.titelNeu, html: $('#ausXML').html() }, function(data) {
 		   alert(data);
 		 });
